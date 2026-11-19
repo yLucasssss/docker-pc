@@ -1,0 +1,13 @@
+$ docker compose kill -s SIGKILL app
+ Container lab13-registry-seguranca-app-1 Killing
+ Container lab13-registry-seguranca-app-1 Killed
+
+$ docker compose ps -a app
+NAME                             IMAGE                          COMMAND                  SERVICE   CREATED          STATUS                      PORTS
+lab13-registry-seguranca-app-1   lab13-registry-seguranca-app   "docker-entrypoint.s…"   app       18 seconds ago   Exited (137) 1 second ago
+
+$ docker inspect .State
+{"Status":"exited","Running":false,"Paused":false,"Restarting":false,"OOMKilled":false,"Dead":false,"Pid":0,"ExitCode":137,"Error":"","StartedAt":"2026-11-19T00:19:08.479724329Z","FinishedAt":"2026-11-19T00:19:22.102380562Z","Health":{"Status":"unhealthy","FailingStreak":0,"Log":[{"Start":"2026-11-19T00:19:19.698622112Z","End":"2026-11-19T00:19:20.184865662Z","ExitCode":0,"Output":"{\"status\":\"ok\"}"}]}}
+
+$ docker compose logs app
+app-1  | app-lab13 ouvindo na porta 6000

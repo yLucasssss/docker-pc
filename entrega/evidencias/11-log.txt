@@ -1,0 +1,365 @@
+Prática 11 — 11-multistage-build — 2026-11-19T00:11:25+00:00
+
+$ docker build --progress=plain -f Dockerfile.single-stage -t app-multistage:single .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.single-stage
+#1 transferring dockerfile: 488B 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/node:20
+#2 DONE 0.2s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 32B 0.0s
+#3 transferring context: 75B 0.0s done
+#3 DONE 0.1s
+
+#4 [1/7] FROM docker.io/library/node:20@sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5
+#4 resolve docker.io/library/node:20@sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5 0.3s done
+#4 extracting sha256:db53381ee51f9e43304e236099ba097ae1b33ae41a8007e0b6319992eb55fd00 20.1s done
+#4 extracting sha256:e5203b2bfeff92b72e816dc6cbb1f16856f0cd592e521e3c0cfa195a78fe180e 7.1s done
+#4 extracting sha256:8fcda2b4d7993820b00c5488d173051e76d01ba6b85620617ba77001b0f9e2fa 29.2s done
+#4 extracting sha256:2933ecab0f11302fd71f29aa83ad2904683246f7a8320ad0dc3a60b23f05fee9
+#4 ...
+
+#5 [internal] load build context
+#5 transferring context: 1.11kB 0.0s done
+#5 DONE 0.1s
+
+#4 [1/7] FROM docker.io/library/node:20@sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5
+#4 extracting sha256:2933ecab0f11302fd71f29aa83ad2904683246f7a8320ad0dc3a60b23f05fee9 53.8s done
+#4 DONE 111.1s
+
+#4 [1/7] FROM docker.io/library/node:20@sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5
+#4 extracting sha256:c83419f4430962505175b565eb8a24aafeaa4d441c0b22234e94c6e8160848ba 0.1s done
+#4 extracting sha256:76e6b8204a89d20e7915fdc9a98ff33cb65fd7ce44ecf5a84b6cfca4bdb3d6d0
+#4 extracting sha256:76e6b8204a89d20e7915fdc9a98ff33cb65fd7ce44ecf5a84b6cfca4bdb3d6d0 14.5s done
+#4 DONE 125.7s
+
+#4 [1/7] FROM docker.io/library/node:20@sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5
+#4 extracting sha256:2f2ab6e4eb4619f7b8506c38dc79c8adf77acffb7622bc15ceeabb0fbc73b8a1
+#4 extracting sha256:2f2ab6e4eb4619f7b8506c38dc79c8adf77acffb7622bc15ceeabb0fbc73b8a1 0.3s done
+#4 DONE 126.0s
+
+#4 [1/7] FROM docker.io/library/node:20@sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5
+#4 extracting sha256:0b22ec2d9b1a1a0e906e301b5ef08efe7774d5fc001b9cfa08e4e980152a0357 0.1s done
+#4 DONE 126.0s
+
+#6 [2/7] WORKDIR /app
+#6 DONE 1.8s
+
+#7 [3/7] COPY package.json ./
+#7 DONE 0.1s
+
+#8 [4/7] RUN npm install
+#8 34.38
+#8 34.38 added 3 packages, and audited 4 packages in 31s
+#8 34.40
+#8 34.40 found 0 vulnerabilities
+#8 34.42 npm notice
+#8 34.42 npm notice New major version of npm available! 10.8.2 -> 12.2.3
+#8 34.42 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.3
+#8 34.42 npm notice To update run: npm install -g npm@12.2.3
+#8 34.42 npm notice
+#8 DONE 34.8s
+
+#9 [5/7] COPY tsconfig.json ./
+#9 DONE 0.3s
+
+#10 [6/7] COPY src ./src
+#10 DONE 0.1s
+
+#11 [7/7] RUN npm run build
+#11 3.512
+#11 3.512 > app-multistage@1.0.0 build
+#11 3.512 > tsc
+#11 3.512
+#11 DONE 41.1s
+
+#12 exporting to image
+#12 exporting layers
+#12 exporting layers 8.7s done
+#12 exporting manifest sha256:1f5ad8034959b22dd2e568ebc508d12a546fbd36a6a9e6c6c869c6cc6721615b 0.1s done
+#12 exporting config sha256:674c29a68042ea4296f568b5c50d9a885062c32b58508f236dc387ca189e55c3 0.0s done
+#12 exporting attestation manifest sha256:a573169cb10a53dd08696c4c06c967641366bd94da44cddd40c2a5759b037c63 0.1s done
+#12 exporting manifest list sha256:a75b362bf5ed1cfa7c6ca78759bf7c03a3e389a7798299efd984e499a4c40240
+#12 exporting manifest list sha256:a75b362bf5ed1cfa7c6ca78759bf7c03a3e389a7798299efd984e499a4c40240 0.1s done
+#12 naming to docker.io/library/app-multistage:single 0.0s done
+#12 unpacking to docker.io/library/app-multistage:single
+#12 unpacking to docker.io/library/app-multistage:single 3.5s done
+#12 DONE 12.8s
+
+$ docker build --progress=plain -f Dockerfile -t app-multistage:multi .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 30B 0.1s
+#1 transferring dockerfile: 631B 0.1s done
+#1 DONE 0.2s
+
+#2 [internal] load metadata for docker.io/library/node:20
+#2 DONE 0.2s
+
+#3 [internal] load metadata for docker.io/library/node:20-alpine
+#3 DONE 0.2s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 75B 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 DONE 0.0s
+
+#6 [stage-1 1/5] FROM docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293
+#6 resolve docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293 0.1s done
+#6 DONE 0.1s
+
+#7 [builder 1/7] FROM docker.io/library/node:20@sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5
+#7 resolve docker.io/library/node:20@sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5
+#7 resolve docker.io/library/node:20@sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5 0.1s done
+#7 DONE 0.1s
+
+#5 [internal] load build context
+#5 transferring context: 122B 0.0s done
+#5 DONE 0.1s
+
+#8 [stage-1 2/5] WORKDIR /app
+#8 CACHED
+
+#9 [builder 7/7] RUN npm run build
+#9 CACHED
+
+#10 [stage-1 3/5] COPY package.json ./
+#10 DONE 0.3s
+
+#11 [stage-1 4/5] RUN npm install --omit=dev
+#11 17.82
+#11 17.82 up to date, audited 1 package in 14s
+#11 17.84
+#11 17.84 found 0 vulnerabilities
+#11 17.86 npm notice
+#11 17.86 npm notice New major version of npm available! 10.8.2 -> 12.2.3
+#11 17.86 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.3
+#11 17.86 npm notice To update run: npm install -g npm@12.2.3
+#11 17.86 npm notice
+#11 DONE 18.1s
+
+#12 [stage-1 5/5] COPY --from=builder /app/dist ./dist
+#12 DONE 0.1s
+
+#13 exporting to image
+#13 exporting layers
+#13 exporting layers 2.6s done
+#13 exporting manifest sha256:aa6173905bd087012276d4afbeddb113a2298fd70068996e0471daff1337eaaf 0.0s done
+#13 exporting config sha256:2aa89ff46501e169f3ba6bba0c37f0d9d8a50af117723a0841339981571cb0c0 0.0s done
+#13 exporting attestation manifest sha256:e54e08b435524ba3dec0a5e9feccc3367c42a447a391f6b39c7d9e009c11f057
+#13 exporting attestation manifest sha256:e54e08b435524ba3dec0a5e9feccc3367c42a447a391f6b39c7d9e009c11f057 0.1s done
+#13 exporting manifest list sha256:5f704939da12fdd0a1f59f26d0a67284a024172a10a77b4a7b2acaa97de6711b 0.1s done
+#13 naming to docker.io/library/app-multistage:multi
+#13 naming to docker.io/library/app-multistage:multi 0.0s done
+#13 unpacking to docker.io/library/app-multistage:multi
+#13 unpacking to docker.io/library/app-multistage:multi 1.4s done
+#13 DONE 4.3s
+
+$ docker image ls app-multistage
+IMAGE                   ID             DISK USAGE   CONTENT SIZE   EXTRA
+app-multistage:multi    49240cdb6e0f        224MB         51.9MB
+app-multistage:single   a75b362bf5ed       1.65GB          412MB
+
+$ docker image inspect --format \{\{.RepoTags\}\}\ \{\{.Size\}\}\ bytes app-multistage:single app-multistage:multi
+[app-multistage:single] 1648223006 bytes
+[app-multistage:multi] 224289606 bytes
+
+$ docker image history app-multistage:single
+IMAGE          CREATED              CREATED BY                                      SIZE      COMMENT
+a75b362bf5ed   43 seconds ago       CMD ["npm" "start"]                             0B        buildkit.dockerfile.v0
+<missing>      43 seconds ago       EXPOSE 5000/tcp                                 0B        buildkit.dockerfile.v0
+<missing>      43 seconds ago       RUN /bin/sh -c npm run build # buildkit         32.8kB    buildkit.dockerfile.v0
+<missing>      About a minute ago   COPY src ./src # buildkit                       16.4kB    buildkit.dockerfile.v0
+<missing>      About a minute ago   COPY tsconfig.json ./ # buildkit                12.3kB    buildkit.dockerfile.v0
+<missing>      About a minute ago   RUN /bin/sh -c npm install # buildkit           59.1MB    buildkit.dockerfile.v0
+<missing>      2 minutes ago        COPY package.json ./ # buildkit                 12.3kB    buildkit.dockerfile.v0
+<missing>      2 minutes ago        WORKDIR /app                                    8.19kB    buildkit.dockerfile.v0
+<missing>      7 months ago         CMD ["node"]                                    0B        buildkit.dockerfile.v0
+<missing>      7 months ago         ENTRYPOINT ["docker-entrypoint.sh"]             0B        buildkit.dockerfile.v0
+<missing>      7 months ago         COPY docker-entrypoint.sh /usr/local/bin/ # …   20.5kB    buildkit.dockerfile.v0
+<missing>      7 months ago         RUN /bin/sh -c set -ex   && export GNUPGHOME…   5.41MB    buildkit.dockerfile.v0
+<missing>      7 months ago         ENV YARN_VERSION=1.22.22                        0B        buildkit.dockerfile.v0
+<missing>      7 months ago         RUN /bin/sh -c ARCH= && dpkgArch="$(dpkg --p…   175MB     buildkit.dockerfile.v0
+<missing>      7 months ago         ENV NODE_VERSION=20.20.2                        0B        buildkit.dockerfile.v0
+<missing>      7 months ago         RUN /bin/sh -c groupadd --gid 1000 node   &&…   69.6kB    buildkit.dockerfile.v0
+<missing>      7 months ago         RUN /bin/sh -c set -ex;  apt-get update;  ap…   619MB     buildkit.dockerfile.v0
+<missing>      7 months ago         RUN /bin/sh -c set -eux;  apt-get update;  a…   194MB     buildkit.dockerfile.v0
+<missing>      7 months ago         RUN /bin/sh -c set -eux;  apt-get update;  a…   52.2MB    buildkit.dockerfile.v0
+<missing>      7 months ago         # debian.sh --arch 'amd64' out/ 'bookworm' '…   133MB     debuerreotype 0.17
+
+$ docker image history app-multistage:multi
+IMAGE          CREATED          CREATED BY                                      SIZE      COMMENT
+49240cdb6e0f   8 seconds ago    CMD ["node" "dist/index.js"]                    0B        buildkit.dockerfile.v0
+<missing>      8 seconds ago    EXPOSE 5000/tcp                                 0B        buildkit.dockerfile.v0
+<missing>      8 seconds ago    COPY /app/dist ./dist # buildkit                16.4kB    buildkit.dockerfile.v0
+<missing>      8 seconds ago    RUN /bin/sh -c npm install --omit=dev # buil…   27.6MB    buildkit.dockerfile.v0
+<missing>      26 seconds ago   COPY package.json ./ # buildkit                 12.3kB    buildkit.dockerfile.v0
+<missing>      12 minutes ago   WORKDIR /app                                    8.19kB    buildkit.dockerfile.v0
+<missing>      7 months ago     CMD ["node"]                                    0B        buildkit.dockerfile.v0
+<missing>      7 months ago     ENTRYPOINT ["docker-entrypoint.sh"]             0B        buildkit.dockerfile.v0
+<missing>      7 months ago     COPY docker-entrypoint.sh /usr/local/bin/ # …   20.5kB    buildkit.dockerfile.v0
+<missing>      7 months ago     RUN /bin/sh -c apk add --no-cache --virtual …   5.48MB    buildkit.dockerfile.v0
+<missing>      7 months ago     ENV YARN_VERSION=1.22.22                        0B        buildkit.dockerfile.v0
+<missing>      7 months ago     RUN /bin/sh -c addgroup -g 1000 node     && …   130MB     buildkit.dockerfile.v0
+<missing>      7 months ago     ENV NODE_VERSION=20.20.2                        0B        buildkit.dockerfile.v0
+<missing>      7 months ago     CMD ["/bin/sh"]                                 0B        buildkit.dockerfile.v0
+<missing>      7 months ago     ADD alpine-minirootfs-3.23.4-x86_64.tar.gz /…   9.11MB    buildkit.dockerfile.v0
+
+$ docker run --rm -d --name app-single -p 5000:5000 app-multistage:single
+aad934c9202f058b111ce03cc77520d68627c44a5764d359c5cbd6a0036212d6
+
+$ docker run --rm -d --name app-multi -p 5001:5000 app-multistage:multi
+4d48f28055a1c4675e23e9fd6d00885deb05b88fb4388ea7b9a644a2cfc3b735
+
+$ http http://localhost:5000
+{"servico":"app-multistage","compilado":true}
+$ http http://localhost:5001
+{"servico":"app-multistage","compilado":true}
+$ docker stop app-single app-multi
+app-single
+app-multi
+
+$ docker build -f Dockerfile.teste --target teste -t app-multistage:teste .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.teste
+#1 transferring dockerfile: 691B 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/node:20
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 75B 0.0s done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 DONE 0.0s
+
+#5 [builder 1/7] FROM docker.io/library/node:20@sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5
+#5 resolve docker.io/library/node:20@sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5
+#5 resolve docker.io/library/node:20@sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5 0.2s done
+#5 DONE 0.2s
+
+#4 [internal] load build context
+#4 transferring context: 122B 0.0s done
+#4 DONE 0.0s
+
+#6 [builder 6/7] COPY src ./src
+#6 CACHED
+
+#7 [builder 3/7] COPY package.json ./
+#7 CACHED
+
+#8 [builder 2/7] WORKDIR /app
+#8 CACHED
+
+#9 [builder 4/7] RUN npm install
+#9 CACHED
+
+#10 [builder 5/7] COPY tsconfig.json ./
+#10 CACHED
+
+#11 [builder 7/7] RUN npm run build
+#11 CACHED
+
+#12 [teste 1/1] RUN node --check dist/index.js
+#12 DONE 2.0s
+
+#13 exporting to image
+#13 exporting layers
+#13 exporting layers 0.4s done
+#13 exporting manifest sha256:3ecd6f6d428594ffdbbe9020c5843f7788d66bbf6304289827a23d21ca4b3b5f 0.1s done
+#13 exporting config sha256:237d3e9167b91e20254e9a3b60f000a4f14867b922f160f590f9a7d5cb6e3443 0.1s done
+#13 exporting attestation manifest sha256:536edf4da0ab697930209de863380f0dea482ec2fde7c55380ff45dc49811bd2 0.0s done
+#13 exporting manifest list sha256:817270e8414a12dd575bad2a8e89914c60d290e88e271e8d07c1790e590eb311 0.0s done
+#13 naming to docker.io/library/app-multistage:teste
+#13 naming to docker.io/library/app-multistage:teste 0.0s done
+#13 unpacking to docker.io/library/app-multistage:teste 0.1s done
+#13 DONE 1.1s
+
+$ docker build -f Dockerfile.teste -t app-multistage:multi-teste .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.teste
+#1 transferring dockerfile: 691B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:20
+#2 DONE 0.2s
+
+#3 [internal] load metadata for docker.io/library/node:20-alpine
+#3 DONE 0.2s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 75B 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 DONE 0.0s
+
+#6 [stage-2 1/5] FROM docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293
+#6 resolve docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293
+#6 resolve docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293 0.2s done
+#6 DONE 0.2s
+
+#7 [builder 1/7] FROM docker.io/library/node:20@sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5
+#7 resolve docker.io/library/node:20@sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5 0.2s done
+#7 DONE 0.2s
+
+#5 [internal] load build context
+#5 transferring context: 122B 0.0s done
+#5 DONE 0.0s
+
+#8 [stage-2 3/5] COPY package.json ./
+#8 CACHED
+
+#9 [builder 2/7] WORKDIR /app
+#9 CACHED
+
+#10 [builder 5/7] COPY tsconfig.json ./
+#10 CACHED
+
+#11 [builder 4/7] RUN npm install
+#11 CACHED
+
+#12 [stage-2 4/5] RUN npm install --omit=dev
+#12 CACHED
+
+#13 [builder 6/7] COPY src ./src
+#13 CACHED
+
+#14 [builder 7/7] RUN npm run build
+#14 CACHED
+
+#15 [stage-2 2/5] WORKDIR /app
+#15 CACHED
+
+#16 [builder 3/7] COPY package.json ./
+#16 CACHED
+
+#17 [stage-2 5/5] COPY --from=builder /app/dist ./dist
+#17 CACHED
+
+#18 exporting to image
+#18 exporting layers 0.0s done
+#18 exporting manifest sha256:aa6173905bd087012276d4afbeddb113a2298fd70068996e0471daff1337eaaf done
+#18 exporting config sha256:2aa89ff46501e169f3ba6bba0c37f0d9d8a50af117723a0841339981571cb0c0
+#18 exporting config sha256:2aa89ff46501e169f3ba6bba0c37f0d9d8a50af117723a0841339981571cb0c0 done
+#18 exporting attestation manifest sha256:2fd53e9477fd1d6c5273f5460983f306e3e0039c38ae04e7aa8bbafcf78f0b62 0.0s done
+#18 exporting manifest list sha256:85701e5377d969f10a4fdbd7daae162e59ecd077e42be701614c97b21cd6800b 0.0s done
+#18 naming to docker.io/library/app-multistage:multi-teste
+#18 naming to docker.io/library/app-multistage:multi-teste done
+#18 unpacking to docker.io/library/app-multistage:multi-teste 0.0s done
+#18 DONE 0.4s
+
+$ docker image inspect --format \{\{.RepoTags\}\}\ \{\{.Size\}\} app-multistage:multi app-multistage:multi-teste
+[app-multistage:multi] 224289606
+[app-multistage:multi-teste] 224289606

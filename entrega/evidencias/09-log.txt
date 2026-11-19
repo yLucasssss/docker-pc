@@ -1,0 +1,167 @@
+Prática 09 — 09-postgresql — 2026-11-19T00:04:59+00:00
+
+$ docker volume create pgdata-lab09
+pgdata-lab09
+
+$ docker run -d --name lab-postgres --env-file .env -v pgdata-lab09:/var/lib/postgresql/data -v /home/ubuntu/p2/labs/09-postgresql/init:/docker-entrypoint-initdb.d:ro -p 5432:5432 postgres:16-alpine
+b19ee7ec44e63466ae2cbd100de44bdaf8237cddd591024dd6e309f38cd31e9a
+
+$ docker logs lab-postgres
+The files belonging to this database system will be owned by user "postgres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "en_US.utf8".
+The default database encoding has accordingly been set to "UTF8".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+fixing permissions on existing directory /var/lib/postgresql/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default max_connections ... 100
+selecting default shared_buffers ... 128MB
+selecting default time zone ... UTC
+creating configuration files ... ok
+running bootstrap script ... ok
+sh: locale: not found
+2026-11-19 00:05:06.785 UTC [47] WARNING:  no usable system locales were found
+performing post-bootstrap initialization ... ok
+initdb: warning: enabling "trust" authentication for local connections
+initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+syncing data to disk ... ok
+
+
+Success. You can now start the database server using:
+
+    pg_ctl -D /var/lib/postgresql/data -l logfile start
+
+waiting for server to start....2026-11-19 00:05:13.387 UTC [71] LOG:  starting PostgreSQL 16.16 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-11-19 00:05:13.393 UTC [71] LOG:  listening on Unix socket "/run/postgresql/.s.PGSQL.5432"
+2026-11-19 00:05:13.417 UTC [74] LOG:  database system was shut down at 2026-11-19 00:05:12 UTC
+2026-11-19 00:05:13.462 UTC [71] LOG:  database system is ready to accept connections
+ done
+server started
+CREATE DATABASE
+
+
+/usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/01-schema.sql
+CREATE TABLE
+
+
+/usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/02-seed.sql
+INSERT 0 3
+
+
+waiting for server to shut down....2026-11-19 00:05:14.657 UTC [71] LOG:  received fast shutdown request
+2026-11-19 00:05:14.660 UTC [71] LOG:  aborting any active transactions
+2026-11-19 00:05:14.680 UTC [71] LOG:  background worker "logical replication launcher" (PID 77) exited with exit code 1
+2026-11-19 00:05:14.681 UTC [72] LOG:  shutting down
+2026-11-19 00:05:14.685 UTC [72] LOG:  checkpoint starting: shutdown immediate
+2026-11-19 00:05:14.962 UTC [72] LOG:  checkpoint complete: wrote 947 buffers (5.8%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.195 s, sync=0.069 s, total=0.279 s; sync files=305, longest=0.008 s, average=0.001 s; distance=4376 kB, estimate=4376 kB; lsn=0/194EF48, redo lsn=0/194EF48
+2026-11-19 00:05:15.016 UTC [71] LOG:  database system is shut down
+ done
+server stopped
+
+PostgreSQL init process complete; ready for start up.
+
+2026-11-19 00:05:15.264 UTC [1] LOG:  starting PostgreSQL 16.16 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-11-19 00:05:15.265 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2026-11-19 00:05:15.266 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2026-11-19 00:05:15.272 UTC [1] LOG:  listening on Unix socket "/run/postgresql/.s.PGSQL.5432"
+2026-11-19 00:05:15.294 UTC [97] LOG:  database system was shut down at 2026-11-19 00:05:14 UTC
+2026-11-19 00:05:15.338 UTC [1] LOG:  database system is ready to accept connections
+
+$ psql09 lab-postgres lab_sistemas_distribuidos SELECT\ \*\ FROM\ alunos\ ORDER\ BY\ id\;
+ id |    nome     |   ra    | periodo |         criado_em
+----+-------------+---------+---------+----------------------------
+  1 | Ana Souza   | 2021001 |       8 | 2026-11-19 00:05:14.620516
+  2 | Bruno Lima  | 2021002 |       8 | 2026-11-19 00:05:14.620516
+  3 | Carla Prado | 2021003 |       8 | 2026-11-19 00:05:14.620516
+(3 rows)
+
+
+$ docker exec lab-postgres createdb -U unifeg lab09_restauro
+
+$ docker exec -i lab-postgres psql -X -v ON_ERROR_STOP=1 -U unifeg -d lab09_restauro
+SET
+SET
+SET
+SET
+SET
+ set_config
+------------
+
+(1 row)
+
+SET
+SET
+SET
+SET
+SET
+SET
+CREATE TABLE
+ALTER TABLE
+CREATE SEQUENCE
+ALTER SEQUENCE
+ALTER SEQUENCE
+ALTER TABLE
+COPY 3
+ setval
+--------
+      3
+(1 row)
+
+ALTER TABLE
+ALTER TABLE
+
+$ psql09 lab-postgres lab09_restauro SELECT\ \*\ FROM\ alunos\ ORDER\ BY\ id\;
+ id |    nome     |   ra    | periodo |         criado_em
+----+-------------+---------+---------+----------------------------
+  1 | Ana Souza   | 2021001 |       8 | 2026-11-19 00:05:14.620516
+  2 | Bruno Lima  | 2021002 |       8 | 2026-11-19 00:05:14.620516
+  3 | Carla Prado | 2021003 |       8 | 2026-11-19 00:05:14.620516
+(3 rows)
+
+
+$ docker rm -f lab-postgres
+lab-postgres
+
+$ docker run -d --name lab-postgres --env-file .env -v pgdata-lab09:/var/lib/postgresql/data -v /home/ubuntu/p2/labs/09-postgresql/init:/docker-entrypoint-initdb.d:ro -p 5432:5432 postgres:16-alpine
+3cdfdbf2eedbabd0f352c410b426d28629cfc0cb1e7619931278978a49b5e5ca
+
+$ psql09 lab-postgres lab_sistemas_distribuidos SELECT\ \*\ FROM\ alunos\ ORDER\ BY\ id\;
+ id |    nome     |   ra    | periodo |         criado_em
+----+-------------+---------+---------+----------------------------
+  1 | Ana Souza   | 2021001 |       8 | 2026-11-19 00:05:14.620516
+  2 | Bruno Lima  | 2021002 |       8 | 2026-11-19 00:05:14.620516
+  3 | Carla Prado | 2021003 |       8 | 2026-11-19 00:05:14.620516
+(3 rows)
+
+
+$ docker rm -f lab-postgres
+lab-postgres
+
+$ docker volume rm pgdata-lab09
+pgdata-lab09
+
+$ docker run -d --name lab-postgres --env-file .env -v pgdata-lab09:/var/lib/postgresql/data -v /home/ubuntu/p2/labs/09-postgresql/init:/docker-entrypoint-initdb.d:ro -p 5432:5432 postgres:16-alpine
+5259693d9157531a0de8e3179f20733ce898ff3328673e5179245a2a13573c0b
+
+$ psql09 lab-postgres lab_sistemas_distribuidos \\d\ alunos
+                                        Table "public.alunos"
+  Column   |            Type             | Collation | Nullable |              Default
+-----------+-----------------------------+-----------+----------+------------------------------------
+ id        | integer                     |           | not null | nextval('alunos_id_seq'::regclass)
+ nome      | character varying(120)      |           | not null |
+ ra        | character varying(20)       |           | not null |
+ periodo   | smallint                    |           | not null | 1
+ criado_em | timestamp without time zone |           | not null | now()
+Indexes:
+    "alunos_pkey" PRIMARY KEY, btree (id)
+    "alunos_ra_key" UNIQUE CONSTRAINT, btree (ra)
+    "idx_alunos_ra_lab09" btree (ra)
+
+
+$ docker rm -f lab-postgres
+lab-postgres

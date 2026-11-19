@@ -1,0 +1,3 @@
+$ docker ps --filter name=lab03-saude
+CONTAINER ID   IMAGE                    COMMAND                  CREATED          STATUS                    PORTS      NAMES
+f1e08ab8882f   app-fundamentos:health   "docker-entrypoint.s…"   11 seconds ago   Up 10 seconds (healthy)   3000/tcp   lab03-saude

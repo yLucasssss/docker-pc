@@ -7,6 +7,10 @@ gerador/
 
 # Ambiente virtual Python
 .env/
+__pycache__/
+
+# Credenciais locais das práticas com PostgreSQL e pgAdmin.
+**/.env
 
 # Prompt interno usado para gerar o material
 prompt.md
@@ -17,3 +21,5 @@ node_modules/
 # Arquivos de sistema
 Thumbs.db
 .DS_Store
+# Cópia com o RA para entrega identificada.
+/entrega-local/

@@ -1,0 +1,268 @@
+Prática 12 — 12-react-stack — 2026-11-19T00:15:04+00:00
+
+$ docker compose config
+name: lab12-react-stack
+services:
+  react-dev:
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    networks:
+      default: null
+    volumes:
+      - type: bind
+        source: /home/ubuntu/p2/labs/12-react-stack/app-react
+        target: /app
+        bind: {}
+      - type: volume
+        source: node_modules_dev
+        target: /app/node_modules
+        volume: {}
+    build:
+      context: /home/ubuntu/p2/labs/12-react-stack
+      dockerfile: Dockerfile.dev
+    ports:
+      - mode: ingress
+        target: 5173
+        published: "5173"
+        protocol: tcp
+networks:
+  default:
+    name: lab12-react-stack_default
+volumes:
+  node_modules_dev:
+    name: lab12-react-stack_node_modules_dev
+
+$ docker compose up -d --build
+ Image lab12-react-stack-react-dev Building
+#1 [internal] load local bake definitions
+#1 reading from stdin 558B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile.dev
+#2 transferring dockerfile: 315B 0.0s done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:20-alpine
+#3 DONE 0.1s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 DONE 0.0s
+
+#6 [1/4] FROM docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293
+#6 resolve docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293 0.1s done
+#6 DONE 0.1s
+
+#5 [internal] load build context
+#5 transferring context: 73B 0.0s done
+#5 DONE 0.0s
+
+#7 [3/4] COPY app-react/package.json ./
+#7 CACHED
+
+#8 [2/4] WORKDIR /app
+#8 CACHED
+
+#9 [4/4] RUN npm install
+#9 CACHED
+
+#10 exporting to image
+#10 exporting layers 0.0s done
+#10 exporting manifest sha256:3b955b657e5b2b26031cf633d52ad78ad979289d456bbfae60d1bd7c4687381e done
+#10 exporting config sha256:b5b5690f09c061d9b5be956ca6cf5cdbebc559b0a60649a969acc62b0582313b done
+#10 exporting attestation manifest sha256:c8fe37dc0373929c7ccc5572e7cae13ad12359c10f23d0ddf9c1ea4847d65a3a
+#10 exporting attestation manifest sha256:c8fe37dc0373929c7ccc5572e7cae13ad12359c10f23d0ddf9c1ea4847d65a3a 0.0s done
+#10 exporting manifest list sha256:b46f60ecba1280c1313c38d057aa8fd03e6ba6ddffe66e3aa200cf140739b414 0.1s done
+#10 naming to docker.io/library/lab12-react-stack-react-dev:latest
+#10 naming to docker.io/library/lab12-react-stack-react-dev:latest 0.0s done
+#10 unpacking to docker.io/library/lab12-react-stack-react-dev:latest 0.0s done
+#10 DONE 0.4s
+
+#11 resolving provenance for metadata file
+#11 DONE 0.1s
+ Image lab12-react-stack-react-dev Built
+ Network lab12-react-stack_default Creating
+ Volume lab12-react-stack_node_modules_dev Creating
+ Volume lab12-react-stack_node_modules_dev Created
+ Network lab12-react-stack_default Created
+ Container lab12-react-stack-react-dev-1 Creating
+ Container lab12-react-stack-react-dev-1 Created
+ Container lab12-react-stack-react-dev-1 Starting
+ Container lab12-react-stack-react-dev-1 Started
+    /* @__PURE__ */ jsxDEV("h1", { children: "Unifeg — React dentro de um container — P2 Lucas Araujo" }, void 0, false, {
+
+$ docker compose logs react-dev
+react-dev-1  |
+react-dev-1  | > app-react-lab12@1.0.0 dev
+react-dev-1  | > vite --host 0.0.0.0
+react-dev-1  |
+react-dev-1  |
+react-dev-1  |   VITE v5.4.21  ready in 2641 ms
+react-dev-1  |
+react-dev-1  |   ➜  Local:   http://localhost:5173/
+react-dev-1  |   ➜  Network: http://172.20.0.2:5173/
+react-dev-1  | 12:15:38 AM [vite] hmr update /src/App.jsx
+
+$ docker compose exec -T react-dev sh -c ls\ -1\ node_modules\ \|\ wc\ -l
+36
+
+$ docker compose down
+ Container lab12-react-stack-react-dev-1 Stopping
+ Container lab12-react-stack-react-dev-1 Stopped
+ Container lab12-react-stack-react-dev-1 Removing
+ Container lab12-react-stack-react-dev-1 Removed
+ Network lab12-react-stack_default Removing
+ Network lab12-react-stack_default Removed
+
+$ docker build -t app-react-lab12:prod .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 393B 0.1s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/nginx:alpine
+#2 DONE 0.2s
+
+#3 [internal] load metadata for docker.io/library/node:20-alpine
+#3 DONE 0.2s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 2.49kB 0.0s done
+#5 DONE 0.1s
+
+#6 [build 1/6] FROM docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293
+#6 resolve docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293 0.2s done
+#6 DONE 0.2s
+
+#7 [stage-1 1/3] FROM docker.io/library/nginx:alpine@sha256:0563c36f94a6d3ec3584161b77859f740f7e20b4853f52c796a864ce6908e8ea
+#7 resolve docker.io/library/nginx:alpine@sha256:0563c36f94a6d3ec3584161b77859f740f7e20b4853f52c796a864ce6908e8ea 0.2s done
+#7 DONE 0.2s
+
+#8 [build 2/6] WORKDIR /app
+#8 CACHED
+
+#9 [build 3/6] COPY app-react/package.json ./
+#9 CACHED
+
+#10 [build 4/6] RUN npm install
+#10 CACHED
+
+#11 [build 5/6] COPY app-react/ ./
+#11 DONE 0.2s
+
+#12 [build 6/6] RUN npm run build
+#12 4.348
+#12 4.348 > app-react-lab12@1.0.0 build
+#12 4.348 > vite build
+#12 4.348
+#12 7.285 vite v5.4.21 building for production...
+#12 8.024 transforming...
+#12 17.56 ✓ 31 modules transformed.
+#12 18.82 rendering chunks...
+#12 18.91 computing gzip size...
+#12 18.98 dist/index.html                   0.35 kB │ gzip:  0.26 kB
+#12 18.98 dist/assets/index-CSHsKEik.css    0.28 kB │ gzip:  0.21 kB
+#12 18.98 dist/assets/index-DyO_3bVJ.js   143.02 kB │ gzip: 46.01 kB
+#12 18.99 ✓ built in 11.32s
+#12 DONE 19.4s
+
+#7 [stage-1 1/3] FROM docker.io/library/nginx:alpine@sha256:0563c36f94a6d3ec3584161b77859f740f7e20b4853f52c796a864ce6908e8ea
+#7 CACHED
+
+#13 [stage-1 2/3] COPY --from=build /app/dist /usr/share/nginx/html
+#13 DONE 0.1s
+
+#14 [stage-1 3/3] COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+#14 DONE 0.1s
+
+#15 exporting to image
+#15 exporting layers
+#15 exporting layers 0.3s done
+#15 exporting manifest sha256:ff69d09339e128f461301eca7cccf26fcbb16bf70bf52cfd7993513e49c6ddc3 0.1s done
+#15 exporting config sha256:878d29a22f12a8d8fecfaa43f6bcb6b25c342c498df4f8d2ac32024148164374 0.0s done
+#15 exporting attestation manifest sha256:ded43ccfaf5d897f4678b27516a8fe66955e9fae56b5742a4e82f9c5ef7ce136 0.0s done
+#15 exporting manifest list sha256:9923117866264663b7e32db7f9aa5c7d0e0df0e17490c075ff60b6085b36ee0f 0.0s done
+#15 naming to docker.io/library/app-react-lab12:prod
+#15 naming to docker.io/library/app-react-lab12:prod 0.0s done
+#15 unpacking to docker.io/library/app-react-lab12:prod
+#15 unpacking to docker.io/library/app-react-lab12:prod 0.2s done
+#15 DONE 1.0s
+
+$ docker build -t app-react-lab12:dev -f Dockerfile.dev .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.dev
+#1 transferring dockerfile: 315B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:20-alpine
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 DONE 0.0s
+
+#5 [1/4] FROM docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293
+#5 resolve docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293 0.1s done
+#5 DONE 0.1s
+
+#4 [internal] load build context
+#4 transferring context: 73B 0.0s done
+#4 DONE 0.0s
+
+#6 [2/4] WORKDIR /app
+#6 CACHED
+
+#7 [3/4] COPY app-react/package.json ./
+#7 CACHED
+
+#8 [4/4] RUN npm install
+#8 CACHED
+
+#9 exporting to image
+#9 exporting layers 0.0s done
+#9 exporting manifest sha256:098f7d0a2b7808b414d01e6a6cb24f6184dea100280c51d1035548235d51a524 0.0s done
+#9 exporting config sha256:7178c55701c48dbfeca10c6901d2a2bf232d1d883bac4516c3dd59a143d7efd3
+#9 exporting config sha256:7178c55701c48dbfeca10c6901d2a2bf232d1d883bac4516c3dd59a143d7efd3 0.1s done
+#9 exporting attestation manifest sha256:fca07518a84f3a322790255e7e6221b177c3a848638ecda820f7a9f329bfd9e8
+#9 exporting attestation manifest sha256:fca07518a84f3a322790255e7e6221b177c3a848638ecda820f7a9f329bfd9e8 0.1s done
+#9 exporting manifest list sha256:6f9c49e0e764f0a8474127f2d55e1649a8cf2491fe647c3297003ba821bd006d 0.0s done
+#9 naming to docker.io/library/app-react-lab12:dev done
+#9 unpacking to docker.io/library/app-react-lab12:dev
+#9 unpacking to docker.io/library/app-react-lab12:dev 0.0s done
+#9 DONE 0.6s
+
+$ docker image ls app-react-lab12
+IMAGE                      ID             DISK USAGE   CONTENT SIZE   EXTRA
+app-react-lab12:dev        6f9c49e0e764        418MB         89.6MB
+app-react-lab12:prebuild   beed234ccf6f       93.9MB         26.4MB
+app-react-lab12:prod       992311786626       93.9MB         26.4MB
+
+$ docker run --rm -d --name react-prod -p 8090:80 app-react-lab12:prod
+1b5af0df20a0657cc66f7e9c76f04056568ac2791d4ee39ed5e45ecc517bcec5
+
+$ http -I http://localhost:8090
+HTTP/1.1 200 OK
+Server: nginx/1.31.9
+Date: Thu, 19 Nov 2026 00:16:20 GMT
+Content-Type: text/html
+Content-Length: 351
+Last-Modified: Thu, 19 Nov 2026 00:16:09 GMT
+Connection: keep-alive
+ETag: "6afe3fc9-15f"
+Accept-Ranges: bytes
+
+
+$ docker stop react-prod
+react-prod

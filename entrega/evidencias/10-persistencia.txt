@@ -1,0 +1,5 @@
+$ docker compose -f compose.yaml -f compose.desafio.yaml exec -T db psql -X -U unifeg -d lab_sistemas_distribuidos -c SELECT\ count\(\*\)\ FROM\ alunos\;
+ count
+-------
+     3
+(1 row)

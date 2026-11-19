@@ -41,6 +41,20 @@ async function tratarRequisicao(req, res) {
     return;
   }
 
+  if (req.method === "DELETE") {
+    const aluno = /^\/alunos\/([1-9][0-9]*)$/.exec(req.url);
+    if (aluno) {
+      const id = Number(aluno[1]);
+      if (!Number.isSafeInteger(id) || id > 2147483647) {
+        return enviarJson(res, 400, { erro: "ID inválido" });
+      }
+      const resultado = await pool.query("DELETE FROM alunos WHERE id = $1 RETURNING id", [id]);
+      if (!resultado.rowCount) return enviarJson(res, 404, { erro: "aluno não encontrado" });
+      res.writeHead(204);
+      return res.end();
+    }
+  }
+
   enviarJson(res, 404, { erro: "rota não encontrada" });
 }
 

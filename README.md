@@ -1,5 +1,10 @@
 # Roteiro de Laboratório — Docker e Docker Compose
 
+## Entrega P2 — Lucas Araujo
+
+- [Roteiro preenchido](docs/Roteiro_Docker_Aluno_Preenchido.docx)
+- [Registro da execução e das evidências](entrega/README.md)
+
 Material de laboratório para a disciplina de Sistemas Distribuídos, Ciência
 da Computação, 8º período — Centro Universitário Unifeg.
 

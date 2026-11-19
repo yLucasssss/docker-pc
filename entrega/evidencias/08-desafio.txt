@@ -1,0 +1,68 @@
+$ docker compose config
+name: lab08-compose-fundamentos
+services:
+  apache:
+    image: httpd:2.4
+    networks:
+      rede-lab08: null
+    volumes:
+      - type: bind
+        source: /home/ubuntu/p2/labs/08-compose-fundamentos/apache/site
+        target: /usr/local/apache2/htdocs
+        bind: {}
+      - type: bind
+        source: /home/ubuntu/p2/labs/08-compose-fundamentos/apache/conf/httpd.conf
+        target: /usr/local/apache2/conf/httpd.conf
+        read_only: true
+        bind: {}
+    ports:
+      - mode: ingress
+        target: 80
+        published: "8080"
+        protocol: tcp
+  backend:
+    networks:
+      rede-lab08: null
+    build:
+      context: /home/ubuntu/p2/labs/08-compose-fundamentos/backend
+      dockerfile: Dockerfile
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - 'fetch(''http://127.0.0.1:4000/status'').then(r => process.exit(r.ok ? 0
+          : 1)).catch(() => process.exit(1))'
+      timeout: 3s
+      interval: 3s
+      retries: 10
+  nginx:
+    environment:
+      NGINX_HOST: unifeg-lucas.local
+    image: nginx:alpine
+    networks:
+      rede-lab08: null
+    volumes:
+      - type: bind
+        source: /home/ubuntu/p2/labs/08-compose-fundamentos/nginx/site
+        target: /usr/share/nginx/html
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /home/ubuntu/p2/labs/08-compose-fundamentos/nginx/conf/nginx.conf
+        target: /etc/nginx/nginx.conf
+        read_only: true
+        bind: {}
+    depends_on:
+      backend:
+        condition: service_started
+        required: true
+    ports:
+      - mode: ingress
+        target: 80
+        published: "8081"
+        protocol: tcp
+networks:
+  rede-lab08:
+    name: lab08-compose-fundamentos_rede-lab08
+    driver: bridge

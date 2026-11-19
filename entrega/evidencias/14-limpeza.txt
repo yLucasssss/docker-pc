@@ -1,0 +1,30 @@
+$ docker compose down
+ Container lab14-projeto-integrador-frontend-1 Stopping
+ Container lab14-projeto-integrador-pgadmin-1 Stopping
+ Container lab14-projeto-integrador-frontend-1 Stopped
+ Container lab14-projeto-integrador-frontend-1 Removing
+ Container lab14-projeto-integrador-frontend-1 Removed
+ Container lab14-projeto-integrador-backend-1 Stopping
+ Container lab14-projeto-integrador-pgadmin-1 Stopped
+ Container lab14-projeto-integrador-pgadmin-1 Removing
+ Container lab14-projeto-integrador-pgadmin-1 Removed
+ Container lab14-projeto-integrador-backend-1 Stopped
+ Container lab14-projeto-integrador-backend-1 Removing
+ Container lab14-projeto-integrador-backend-1 Removed
+ Container lab14-projeto-integrador-db-1 Stopping
+ Container lab14-projeto-integrador-db-1 Stopped
+ Container lab14-projeto-integrador-db-1 Removing
+ Container lab14-projeto-integrador-db-1 Removed
+ Network lab14-projeto-integrador_rede-integrador Removing
+ Network lab14-projeto-integrador_rede-integrador Removed
+$ docker volume ls --filter label=com.docker.compose.project=lab14-projeto-integrador
+DRIVER    VOLUME NAME
+local     lab14-projeto-integrador_pgadmin_data
+local     lab14-projeto-integrador_pgdata
+$ docker compose down -v
+ Volume lab14-projeto-integrador_pgadmin_data Removing
+ Volume lab14-projeto-integrador_pgdata Removing
+ Volume lab14-projeto-integrador_pgadmin_data Removed
+ Volume lab14-projeto-integrador_pgdata Removed
+$ docker volume ls --filter label=com.docker.compose.project=lab14-projeto-integrador
+DRIVER    VOLUME NAME

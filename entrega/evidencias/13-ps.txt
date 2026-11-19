@@ -1,0 +1,4 @@
+$ docker compose ps
+NAME                                  IMAGE                          COMMAND                  SERVICE    CREATED          STATUS                    PORTS
+lab13-registry-seguranca-app-1        lab13-registry-seguranca-app   "docker-entrypoint.s…"   app        15 seconds ago   Up 13 seconds (healthy)   0.0.0.0:6000->6000/tcp, [::]:6000->6000/tcp
+lab13-registry-seguranca-registry-1   registry:2                     "/entrypoint.sh /etc…"   registry   15 seconds ago   Up 14 seconds             0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp

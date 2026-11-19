@@ -1,0 +1,13 @@
+$ psql09 lab-postgres lab_sistemas_distribuidos \\d\ alunos
+                                        Table "public.alunos"
+  Column   |            Type             | Collation | Nullable |              Default
+-----------+-----------------------------+-----------+----------+------------------------------------
+ id        | integer                     |           | not null | nextval('alunos_id_seq'::regclass)
+ nome      | character varying(120)      |           | not null |
+ ra        | character varying(20)       |           | not null |
+ periodo   | smallint                    |           | not null | 1
+ criado_em | timestamp without time zone |           | not null | now()
+Indexes:
+    "alunos_pkey" PRIMARY KEY, btree (id)
+    "alunos_ra_key" UNIQUE CONSTRAINT, btree (ra)
+    "idx_alunos_ra_lab09" btree (ra)

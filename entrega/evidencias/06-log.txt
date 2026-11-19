@@ -1,0 +1,93 @@
+Prática 06 — 06-apache — 2026-11-19T00:03:28+00:00
+
+$ docker run -d --name lab-apache -p 8080:80 -v /home/ubuntu/p2/labs/06-apache/site:/usr/local/apache2/htdocs -v /home/ubuntu/p2/labs/06-apache/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro httpd:2.4
+Unable to find image 'httpd:2.4' locally
+2.4: Pulling from library/httpd
+37fb86c2a767: Pulling fs layer
+f66a634827fc: Pulling fs layer
+36f27ea25a12: Pulling fs layer
+5095e9eeb5b3: Pulling fs layer
+4f4fb700ef54: Pulling fs layer
+4a9c4d665867: Pulling fs layer
+5095e9eeb5b3: Download complete
+4a9c4d665867: Download complete
+36f27ea25a12: Download complete
+4f4fb700ef54: Download complete
+0472a7b76d68: Download complete
+a201247efe33: Download complete
+37fb86c2a767: Download complete
+f66a634827fc: Download complete
+37fb86c2a767: Pull complete
+5095e9eeb5b3: Pull complete
+4f4fb700ef54: Pull complete
+4a9c4d665867: Pull complete
+f66a634827fc: Pull complete
+36f27ea25a12: Pull complete
+Digest: sha256:32e9403360ab2f1047523e72f256527fb9aee68b342abf6ad03f0d629157f3d9
+Status: Downloaded newer image for httpd:2.4
+a4e376882107cbb153fde483565c2aa702b27d79b40f2f309234ea68938afb83
+
+$ http -i http://localhost:8080
+HTTP/1.1 200 OK
+Date: Thu, 19 Nov 2026 00:03:49 GMT
+Server: Apache/2.4.71 (Unix)
+Last-Modified: Wed, 18 Nov 2026 23:41:33 GMT
+ETag: "219-660958d1792fc"
+Accept-Ranges: bytes
+Content-Length: 537
+X-Servido-Por: Apache-Unifeg-Lab06
+Content-Type: text/html
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Unifeg — Apache em container</title>
+  <link rel="stylesheet" href="estilo.css" />
+</head>
+<body>
+  <main>
+    <h1>Servido pelo Apache HTTP Server</h1>
+    <p>Esta página está em <code>site/</code> no host e foi mapeada por
+       bind mount para <code>/usr/local/apache2/htdocs</code> dentro do container.</p>
+    <p>Edite este arquivo e recarregue a página — não é preciso reconstruir imagem nenhuma.</p>
+  </main>
+</body>
+</html>
+
+$ docker exec lab-apache httpd -t
+Syntax OK
+
+$ docker logs lab-apache
+[Thu Nov 19 00:03:47.550542 2026] [mpm_event:notice] [pid 1:tid 1] AH00489: Apache/2.4.71 (Unix) configured -- resuming normal operations
+[Thu Nov 19 00:03:47.554892 2026] [core:notice] [pid 1:tid 1] AH00094: Command line: 'httpd -D FOREGROUND'
+172.17.0.1 - - [19/Nov/2026:00:03:49 +0000] "GET / HTTP/1.1" 200 537 tempo=17572-us
+172.17.0.1 - - [19/Nov/2026:00:03:49 +0000] "GET / HTTP/1.1" 200 537 tempo=1488-us
+
+$ bash -c curl\ -fsS\ http://localhost:8080\ \|\ grep\ -F\ \"P2\ -\ Lucas\ Araujo\"
+<!-- P2 - Lucas Araujo -->
+
+$ http -i http://localhost:8080/sobre.html
+HTTP/1.1 200 OK
+Date: Thu, 19 Nov 2026 00:03:50 GMT
+Server: Apache/2.4.71 (Unix)
+Last-Modified: Thu, 19 Nov 2026 00:03:50 GMT
+ETag: W/"2e-66095dcc47586"
+Accept-Ranges: bytes
+Content-Length: 46
+X-Servido-Por: Apache-Unifeg-Lab06
+Content-Type: text/html
+
+<h1>Sobre o laboratório de Lucas Araujo</h1>
+
+$ docker rm -f lab-apache
+lab-apache
+
+$ docker run -d --name lab-apache -p 8080:80 -v /home/ubuntu/p2/labs/06-apache/site:/usr/local/apache2/htdocs -v /home/ubuntu/p2/labs/06-apache/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro httpd:2.4
+372db7d20bd3b88a9c20846910e237051a121cc0884f9cf789180c3f68c596b1
+
+$ curl -s -o /dev/null -w %\{http_code\}\\n http://localhost:8080/listagem-lab/
+403
+
+$ docker rm -f lab-apache
+lab-apache

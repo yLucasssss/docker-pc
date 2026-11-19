@@ -1,0 +1,5 @@
+$ docker ps --filter name=\^/lucas-p2-
+CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS         PORTS     NAMES
+9b119b3e2607   alpine    "sleep 300"   3 seconds ago   Up 1 second              lucas-p2-3
+42e1fc6443b0   alpine    "sleep 300"   6 seconds ago   Up 4 seconds             lucas-p2-2
+469458edd481   alpine    "sleep 300"   9 seconds ago   Up 7 seconds             lucas-p2-1

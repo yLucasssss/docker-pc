@@ -1,0 +1,5 @@
+pgAdmin · servidor Lab 10 - Postgres via Compose · banco lab_sistemas_distribuidos
+SELECT id, nome, ra, periodo FROM public.alunos ORDER BY id;
+1 1 Ana Souza 2021001 8
+2 2 Bruno Lima 2021002 8
+3 3 Carla Prado 2021003 8

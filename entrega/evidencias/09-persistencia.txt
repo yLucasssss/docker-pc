@@ -1,0 +1,7 @@
+$ psql09 lab-postgres lab_sistemas_distribuidos SELECT\ \*\ FROM\ alunos\ ORDER\ BY\ id\;
+ id |    nome     |   ra    | periodo |         criado_em
+----+-------------+---------+---------+----------------------------
+  1 | Ana Souza   | 2021001 |       8 | 2026-11-19 00:05:14.620516
+  2 | Bruno Lima  | 2021002 |       8 | 2026-11-19 00:05:14.620516
+  3 | Carla Prado | 2021003 |       8 | 2026-11-19 00:05:14.620516
+(3 rows)

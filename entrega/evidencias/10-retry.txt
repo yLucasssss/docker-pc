@@ -1,0 +1,355 @@
+Prática 10 — 10-pgadmin-compose — 2026-11-19T00:24:38+00:00
+
+$ compose_config
+db
+pgadmin
+
+$ docker compose up -d --wait --wait-timeout 240
+ Container lab10-pgadmin-compose-pgadmin-1 Running
+ Container lab10-pgadmin-compose-db-1 Running
+ Container lab10-pgadmin-compose-db-1 Waiting
+ Container lab10-pgadmin-compose-db-1 Healthy
+ Container lab10-pgadmin-compose-pgadmin-1 Waiting
+ Container lab10-pgadmin-compose-db-1 Waiting
+ Container lab10-pgadmin-compose-db-1 Healthy
+ Container lab10-pgadmin-compose-pgadmin-1 Healthy
+
+$ docker compose ps
+NAME                              IMAGE                COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+lab10-pgadmin-compose-db-1        postgres:16-alpine   "docker-entrypoint.s…"   db        18 minutes ago   Up 18 minutes (healthy)   5432/tcp
+lab10-pgadmin-compose-pgadmin-1   dpage/pgadmin4:8     "/entrypoint.sh"         pgadmin   18 minutes ago   Up 18 minutes             443/tcp, 0.0.0.0:8082->80/tcp, [::]:8082->80/tcp
+
+$ docker compose logs db
+db-1  | The files belonging to this database system will be owned by user "postgres".
+db-1  | This user must also own the server process.
+db-1  |
+db-1  | The database cluster will be initialized with locale "en_US.utf8".
+db-1  | The default database encoding has accordingly been set to "UTF8".
+db-1  | The default text search configuration will be set to "english".
+db-1  |
+db-1  | Data page checksums are disabled.
+db-1  |
+db-1  | fixing permissions on existing directory /var/lib/postgresql/data ... ok
+db-1  | creating subdirectories ... ok
+db-1  | selecting dynamic shared memory implementation ... posix
+db-1  | selecting default max_connections ... 100
+db-1  | selecting default shared_buffers ... 128MB
+db-1  | selecting default time zone ... UTC
+db-1  | creating configuration files ... ok
+db-1  | running bootstrap script ... ok
+db-1  | sh: locale: not found
+db-1  | 2026-11-19 00:05:59.757 UTC [35] WARNING:  no usable system locales were found
+db-1  | performing post-bootstrap initialization ... ok
+db-1  | initdb: warning: enabling "trust" authentication for local connections
+db-1  | initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+db-1  | syncing data to disk ... ok
+db-1  |
+db-1  |
+db-1  | Success. You can now start the database server using:
+db-1  |
+db-1  |     pg_ctl -D /var/lib/postgresql/data -l logfile start
+db-1  |
+db-1  | waiting for server to start....2026-11-19 00:06:06.320 UTC [53] LOG:  starting PostgreSQL 16.16 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+db-1  | 2026-11-19 00:06:06.325 UTC [53] LOG:  listening on Unix socket "/run/postgresql/.s.PGSQL.5432"
+db-1  | 2026-11-19 00:06:06.347 UTC [56] LOG:  database system was shut down at 2026-11-19 00:06:05 UTC
+db-1  | 2026-11-19 00:06:06.389 UTC [53] LOG:  database system is ready to accept connections
+db-1  |  done
+db-1  | server started
+db-1  | CREATE DATABASE
+db-1  |
+db-1  |
+db-1  | /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/01-schema.sql
+db-1  | CREATE TABLE
+db-1  |
+db-1  |
+db-1  | /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/02-seed.sql
+db-1  | INSERT 0 3
+db-1  |
+db-1  |
+db-1  | waiting for server to shut down....2026-11-19 00:06:07.608 UTC [53] LOG:  received fast shutdown request
+db-1  | 2026-11-19 00:06:07.611 UTC [53] LOG:  aborting any active transactions
+db-1  | 2026-11-19 00:06:07.631 UTC [53] LOG:  background worker "logical replication launcher" (PID 59) exited with exit code 1
+db-1  | 2026-11-19 00:06:07.658 UTC [54] LOG:  shutting down
+db-1  | 2026-11-19 00:06:07.661 UTC [54] LOG:  checkpoint starting: shutdown immediate
+db-1  | 2026-11-19 00:06:07.942 UTC [54] LOG:  checkpoint complete: wrote 947 buffers (5.8%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.198 s, sync=0.071 s, total=0.284 s; sync files=305, longest=0.010 s, average=0.001 s; distance=4376 kB, estimate=4376 kB; lsn=0/194EF48, redo lsn=0/194EF48
+db-1  | 2026-11-19 00:06:07.999 UTC [53] LOG:  database system is shut down
+db-1  |  done
+db-1  | server stopped
+db-1  |
+db-1  | PostgreSQL init process complete; ready for start up.
+db-1  |
+db-1  | 2026-11-19 00:06:08.226 UTC [1] LOG:  starting PostgreSQL 16.16 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+db-1  | 2026-11-19 00:06:08.227 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+db-1  | 2026-11-19 00:06:08.227 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+db-1  | 2026-11-19 00:06:08.235 UTC [1] LOG:  listening on Unix socket "/run/postgresql/.s.PGSQL.5432"
+db-1  | 2026-11-19 00:06:08.257 UTC [73] LOG:  database system was shut down at 2026-11-19 00:06:07 UTC
+db-1  | 2026-11-19 00:06:08.302 UTC [1] LOG:  database system is ready to accept connections
+db-1  | 2026-11-19 00:06:10.179 UTC [83] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:06:15.537 UTC [91] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:06:20.836 UTC [98] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:06:26.138 UTC [105] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:06:31.445 UTC [113] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:06:36.776 UTC [120] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:06:42.090 UTC [127] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:06:47.421 UTC [134] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:06:52.779 UTC [143] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:06:58.200 UTC [151] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:07:03.514 UTC [158] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:07:08.813 UTC [166] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:07:14.124 UTC [173] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:07:19.425 UTC [180] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:07:24.727 UTC [187] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:07:30.029 UTC [195] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:07:35.349 UTC [202] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:07:40.671 UTC [209] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:07:45.995 UTC [216] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:07:51.341 UTC [225] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:07:56.668 UTC [232] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:08:01.975 UTC [239] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:08:07.281 UTC [246] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:08:12.600 UTC [254] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:08:17.916 UTC [261] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:08:23.223 UTC [268] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:08:28.537 UTC [276] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:08:33.876 UTC [283] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:08:39.190 UTC [290] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:08:44.501 UTC [297] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:08:49.815 UTC [305] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:08:55.306 UTC [313] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:09:01.306 UTC [320] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:09:06.846 UTC [327] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:09:12.204 UTC [335] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:09:17.795 UTC [342] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:09:23.496 UTC [348] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:09:28.931 UTC [356] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:09:34.289 UTC [363] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:09:39.628 UTC [370] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:09:44.952 UTC [377] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:09:50.320 UTC [385] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:09:55.725 UTC [392] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:10:01.176 UTC [399] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:10:06.533 UTC [406] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:10:11.896 UTC [414] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:10:17.377 UTC [421] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:10:22.891 UTC [428] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:10:28.368 UTC [435] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:10:33.922 UTC [443] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:10:39.537 UTC [450] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:10:45.072 UTC [457] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:10:50.577 UTC [465] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:10:56.275 UTC [472] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:11:01.869 UTC [479] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:11:07.551 UTC [486] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:11:08.356 UTC [71] LOG:  checkpoint starting: time
+db-1  | 2026-11-19 00:11:11.071 UTC [71] LOG:  checkpoint complete: wrote 28 buffers (0.2%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.581 s, sync=0.043 s, total=2.716 s; sync files=10, longest=0.028 s, average=0.005 s; distance=123 kB, estimate=123 kB; lsn=0/196DCD0, redo lsn=0/196DC98
+db-1  | 2026-11-19 00:11:13.112 UTC [494] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:11:18.642 UTC [501] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:11:24.075 UTC [508] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:11:29.523 UTC [517] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:11:34.947 UTC [524] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:11:40.701 UTC [531] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:11:46.301 UTC [538] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:11:51.819 UTC [546] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:11:57.300 UTC [553] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:12:02.772 UTC [560] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:12:08.270 UTC [567] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:12:13.763 UTC [575] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:12:19.131 UTC [582] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:12:24.528 UTC [589] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:12:29.903 UTC [597] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:12:35.376 UTC [604] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:12:40.741 UTC [611] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:12:46.075 UTC [618] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:12:51.383 UTC [626] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:12:56.714 UTC [633] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:13:02.092 UTC [640] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:13:07.530 UTC [647] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:13:12.907 UTC [655] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:13:18.321 UTC [661] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:13:23.702 UTC [668] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:13:29.138 UTC [676] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:13:34.562 UTC [683] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:13:40.019 UTC [690] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:13:45.409 UTC [697] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:13:50.720 UTC [705] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:13:56.046 UTC [712] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:14:01.402 UTC [719] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:14:06.741 UTC [726] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:14:12.110 UTC [734] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:14:17.440 UTC [741] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:14:22.756 UTC [748] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:14:28.240 UTC [755] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:14:33.586 UTC [763] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:14:38.929 UTC [770] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:14:44.237 UTC [777] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:14:49.538 UTC [785] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:14:54.927 UTC [792] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:15:00.407 UTC [800] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:15:05.775 UTC [808] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:15:11.134 UTC [816] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:15:16.470 UTC [823] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:15:21.810 UTC [830] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:15:27.168 UTC [837] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:15:32.489 UTC [845] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:15:37.784 UTC [852] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:15:43.136 UTC [859] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:15:48.474 UTC [866] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:15:53.834 UTC [874] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:15:59.329 UTC [882] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:16:04.687 UTC [889] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:16:10.067 UTC [897] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:16:15.522 UTC [904] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:16:20.851 UTC [911] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:16:26.440 UTC [918] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:16:31.818 UTC [926] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:16:37.222 UTC [933] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:16:42.521 UTC [940] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:16:47.861 UTC [947] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:16:53.154 UTC [955] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:16:58.733 UTC [962] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:17:04.035 UTC [969] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:17:09.323 UTC [977] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:17:14.610 UTC [984] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:17:19.893 UTC [991] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:17:25.184 UTC [998] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:17:30.495 UTC [1006] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:17:35.806 UTC [1013] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:17:41.090 UTC [1020] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:17:46.388 UTC [1027] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:17:51.685 UTC [1035] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:17:56.990 UTC [1042] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:18:02.285 UTC [1049] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:18:07.577 UTC [1056] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:18:12.873 UTC [1064] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:18:18.196 UTC [1071] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:18:23.501 UTC [1079] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:18:28.797 UTC [1087] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:18:34.084 UTC [1094] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:18:39.368 UTC [1101] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:18:44.654 UTC [1108] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:18:49.942 UTC [1116] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:18:55.224 UTC [1123] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:19:00.500 UTC [1130] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:19:05.877 UTC [1137] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:19:11.173 UTC [1145] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:19:16.470 UTC [1152] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:19:21.782 UTC [1159] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:19:27.075 UTC [1166] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:19:32.357 UTC [1174] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:19:37.643 UTC [1181] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:19:42.937 UTC [1188] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:19:48.225 UTC [1195] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:19:53.528 UTC [1203] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:19:58.820 UTC [1210] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:20:04.115 UTC [1217] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:20:09.411 UTC [1225] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:20:14.697 UTC [1232] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:20:19.975 UTC [1239] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:20:25.265 UTC [1246] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:20:30.554 UTC [1254] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:20:35.854 UTC [1261] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:20:41.146 UTC [1268] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:20:46.425 UTC [1275] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:20:51.715 UTC [1283] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:20:57.016 UTC [1290] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:21:02.307 UTC [1297] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:21:07.597 UTC [1304] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:21:12.881 UTC [1312] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:21:18.168 UTC [1319] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:21:23.473 UTC [1326] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:21:28.824 UTC [1334] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:21:34.133 UTC [1341] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:21:39.450 UTC [1348] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:21:44.816 UTC [1355] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:21:50.127 UTC [1363] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:21:55.415 UTC [1370] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:22:00.726 UTC [1377] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:22:06.023 UTC [1384] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:22:11.339 UTC [1392] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:22:16.631 UTC [1399] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:22:21.939 UTC [1406] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:22:27.232 UTC [1414] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:22:32.534 UTC [1422] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:22:37.824 UTC [1429] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:22:43.120 UTC [1436] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:22:48.429 UTC [1443] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:22:53.729 UTC [1451] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:22:59.025 UTC [1458] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:23:04.322 UTC [1465] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:23:09.629 UTC [1473] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:23:14.923 UTC [1480] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:23:20.215 UTC [1487] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:23:25.503 UTC [1494] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:23:30.792 UTC [1502] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:23:36.095 UTC [1509] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:23:41.399 UTC [1516] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:23:46.686 UTC [1523] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:23:51.978 UTC [1531] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:23:57.266 UTC [1538] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:24:02.565 UTC [1545] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:24:07.858 UTC [1552] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:24:13.151 UTC [1560] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:24:18.442 UTC [1567] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:24:23.750 UTC [1574] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:24:29.036 UTC [1583] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:24:34.332 UTC [1591] FATAL:  database "unifeg" does not exist
+db-1  | 2026-11-19 00:24:39.653 UTC [1598] FATAL:  database "unifeg" does not exist
+
+$ docker compose exec -T db psql -X -U unifeg -d lab_sistemas_distribuidos -c SELECT\ \*\ FROM\ alunos\ ORDER\ BY\ id\;
+ id |    nome     |   ra    | periodo |         criado_em
+----+-------------+---------+---------+----------------------------
+  1 | Ana Souza   | 2021001 |       8 | 2026-11-19 00:06:07.574258
+  2 | Bruno Lima  | 2021002 |       8 | 2026-11-19 00:06:07.574258
+  3 | Carla Prado | 2021003 |       8 | 2026-11-19 00:06:07.574258
+(3 rows)
+
+
+$ docker compose down
+ Container lab10-pgadmin-compose-pgadmin-1 Stopping
+ Container lab10-pgadmin-compose-pgadmin-1 Stopped
+ Container lab10-pgadmin-compose-pgadmin-1 Removing
+ Container lab10-pgadmin-compose-pgadmin-1 Removed
+ Container lab10-pgadmin-compose-db-1 Stopping
+ Container lab10-pgadmin-compose-db-1 Stopped
+ Container lab10-pgadmin-compose-db-1 Removing
+ Container lab10-pgadmin-compose-db-1 Removed
+ Network lab10-pgadmin-compose_rede-lab10 Removing
+ Network lab10-pgadmin-compose_rede-lab10 Removed
+
+$ docker compose -f compose.yaml -f compose.desafio.yaml up -d
+ Network lab10-pgadmin-compose_default Creating
+ Network lab10-pgadmin-compose_rede-lab10 Creating
+ Network lab10-pgadmin-compose_default Created
+ Network lab10-pgadmin-compose_rede-lab10 Created
+ Container lab10-pgadmin-compose-db-1 Creating
+ Container lab10-pgadmin-compose-db-1 Created
+ Container lab10-pgadmin-compose-pgadmin-1 Creating
+ Container lab10-pgadmin-compose-pgadmin-1 Created
+ Container lab10-pgadmin-compose-verificador-1 Creating
+ Container lab10-pgadmin-compose-verificador-1 Created
+ Container lab10-pgadmin-compose-db-1 Starting
+ Container lab10-pgadmin-compose-db-1 Started
+ Container lab10-pgadmin-compose-db-1 Waiting
+ Container lab10-pgadmin-compose-db-1 Healthy
+ Container lab10-pgadmin-compose-pgadmin-1 Starting
+ Container lab10-pgadmin-compose-pgadmin-1 Started
+ Container lab10-pgadmin-compose-pgadmin-1 Waiting
+ Container lab10-pgadmin-compose-pgadmin-1 Healthy
+ Container lab10-pgadmin-compose-verificador-1 Starting
+ Container lab10-pgadmin-compose-verificador-1 Started
+
+$ docker compose -f compose.yaml -f compose.desafio.yaml exec -T db psql -X -U unifeg -d lab_sistemas_distribuidos -c SELECT\ count\(\*\)\ FROM\ alunos\;
+ count
+-------
+     3
+(1 row)
+
+
+$ docker compose -f compose.yaml -f compose.desafio.yaml ps -a
+NAME                                  IMAGE                COMMAND                  SERVICE       CREATED         STATUS                     PORTS
+lab10-pgadmin-compose-db-1            postgres:16-alpine   "docker-entrypoint.s…"   db            2 minutes ago   Up 2 minutes (healthy)     5432/tcp
+lab10-pgadmin-compose-pgadmin-1       dpage/pgadmin4:8     "/entrypoint.sh"         pgadmin       2 minutes ago   Up 2 minutes (healthy)     443/tcp, 0.0.0.0:8082->80/tcp, [::]:8082->80/tcp
+lab10-pgadmin-compose-verificador-1   alpine               "echo 'pgAdmin pront…"   verificador   2 minutes ago   Exited (0) 4 seconds ago
+
+$ docker compose -f compose.yaml -f compose.desafio.yaml logs verificador
+verificador-1  | pgAdmin pronto para o serviço dependente

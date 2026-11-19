@@ -1,0 +1,5 @@
+$ docker logs lab-apache
+[Thu Nov 19 00:03:47.550542 2026] [mpm_event:notice] [pid 1:tid 1] AH00489: Apache/2.4.71 (Unix) configured -- resuming normal operations
+[Thu Nov 19 00:03:47.554892 2026] [core:notice] [pid 1:tid 1] AH00094: Command line: 'httpd -D FOREGROUND'
+172.17.0.1 - - [19/Nov/2026:00:03:49 +0000] "GET / HTTP/1.1" 200 537 tempo=17572-us
+172.17.0.1 - - [19/Nov/2026:00:03:49 +0000] "GET / HTTP/1.1" 200 537 tempo=1488-us

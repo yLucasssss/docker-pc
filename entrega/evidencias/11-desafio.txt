@@ -1,0 +1,3 @@
+$ docker image inspect --format \{\{.RepoTags\}\}\ \{\{.Size\}\} app-multistage:multi app-multistage:multi-teste
+[app-multistage:multi] 224289606
+[app-multistage:multi-teste] 224289606

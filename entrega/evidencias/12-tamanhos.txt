@@ -1,0 +1,5 @@
+$ docker image ls app-react-lab12
+IMAGE                      ID             DISK USAGE   CONTENT SIZE   EXTRA
+app-react-lab12:dev        6f9c49e0e764        418MB         89.6MB
+app-react-lab12:prebuild   beed234ccf6f       93.9MB         26.4MB
+app-react-lab12:prod       992311786626       93.9MB         26.4MB

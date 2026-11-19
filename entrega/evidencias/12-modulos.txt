@@ -1,0 +1,2 @@
+$ docker compose exec -T react-dev sh -c ls\ -1\ node_modules\ \|\ wc\ -l
+36

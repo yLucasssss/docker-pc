@@ -1,0 +1,3 @@
+[vite] connected.
+[vite] hot updated: /src/App.jsx
+Unifeg — React dentro de um container — P2 Lucas Araujo

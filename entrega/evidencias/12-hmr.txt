@@ -1,0 +1,11 @@
+$ docker compose logs react-dev
+react-dev-1  |
+react-dev-1  | > app-react-lab12@1.0.0 dev
+react-dev-1  | > vite --host 0.0.0.0
+react-dev-1  |
+react-dev-1  |
+react-dev-1  |   VITE v5.4.21  ready in 2641 ms
+react-dev-1  |
+react-dev-1  |   ➜  Local:   http://localhost:5173/
+react-dev-1  |   ➜  Network: http://172.20.0.2:5173/
+react-dev-1  | 12:15:38 AM [vite] hmr update /src/App.jsx

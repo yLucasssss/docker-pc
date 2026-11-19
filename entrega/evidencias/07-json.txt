@@ -1,0 +1,2 @@
+$ http http://localhost:8081/api/status
+{"servico":"backend-lab07","status":"ok","hostname":"f380458e6773","caminhoRecebido":"/status"}

@@ -1,0 +1,45 @@
+$ docker build --progress=plain -t app-fundamentos:1.0 .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 395B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:20-alpine
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 75B 0.0s done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 754B 0.0s done
+#4 DONE 0.0s
+
+#5 [1/5] FROM docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293
+#5 resolve docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293 0.1s done
+#5 DONE 0.1s
+
+#6 [3/5] COPY app/package.json ./
+#6 CACHED
+
+#7 [2/5] WORKDIR /app
+#7 CACHED
+
+#8 [4/5] RUN npm install --omit=dev
+#8 CACHED
+
+#9 [5/5] COPY app/server.js ./
+#9 DONE 0.1s
+
+#10 exporting to image
+#10 exporting layers
+#10 exporting layers 0.2s done
+#10 exporting manifest sha256:5ad7ba83ad08919509d0eb008e5215e3b1876d83c2b0528605167216732684d2 0.0s done
+#10 exporting config sha256:3b97b4d21433d8987b0fc69381c55044f36112c958d67f0187711f05d35041e0 0.0s done
+#10 exporting attestation manifest sha256:cd62d78c8541b601a74cdc662d302f0c24aefdf61229343c131d229d5c4d0697
+#10 exporting attestation manifest sha256:cd62d78c8541b601a74cdc662d302f0c24aefdf61229343c131d229d5c4d0697 0.0s done
+#10 exporting manifest list sha256:6276eec6084c43c93b02958debb240c0a3487aa52be32657e0327b0555ba6f7c 0.0s done
+#10 naming to docker.io/library/app-fundamentos:1.0 done
+#10 unpacking to docker.io/library/app-fundamentos:1.0 0.1s done
+#10 DONE 0.6s

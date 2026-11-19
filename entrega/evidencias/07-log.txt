@@ -1,0 +1,106 @@
+Prática 07 — 07-nginx — 2026-11-19T00:03:54+00:00
+
+$ docker network create rede-lab07
+d5e0431495b8c33ed3ffae937e641015e2799d71a75ebc2ff13e51c334768eba
+
+$ docker build -t backend-lab07:1.0 ./backend
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 147B 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/node:20-alpine
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 527B 0.0s done
+#4 DONE 0.1s
+
+#5 [1/3] FROM docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293
+#5 resolve docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293 0.1s done
+#5 DONE 0.1s
+
+#6 [2/3] WORKDIR /app
+#6 CACHED
+
+#7 [3/3] COPY server.js ./
+#7 DONE 0.1s
+
+#8 exporting to image
+#8 exporting layers
+#8 exporting layers 0.2s done
+#8 exporting manifest sha256:672b7b826321ebff8c69d2fb138fb9dc5f83b2d359b2d84ad62cc0c42b0729fa 0.0s done
+#8 exporting config sha256:de34f5b27da2ae1c7342db63d461923e156ff7d025fdc4f35140e8b708968d1e 0.0s done
+#8 exporting attestation manifest sha256:c2c88b75731ca1d19be64a078f981c8cc985c1c1d3bd5cbe076c49a6e0e9ee43 0.0s done
+#8 exporting manifest list sha256:6bc6335b4c2ae8df0830fe266a8b2698bf91bde959c2bc6b7fb31e92f7f89f62
+#8 exporting manifest list sha256:6bc6335b4c2ae8df0830fe266a8b2698bf91bde959c2bc6b7fb31e92f7f89f62 0.0s done
+#8 naming to docker.io/library/backend-lab07:1.0 done
+#8 unpacking to docker.io/library/backend-lab07:1.0 0.1s done
+#8 DONE 0.6s
+
+$ docker run -d --name backend --network rede-lab07 backend-lab07:1.0
+f380458e67730af9895675ade4d1ab549b397d6155eacc355a6d76b63105ccd6
+
+$ docker run -d --name lab-nginx --network rede-lab07 -p 8081:80 -v /home/ubuntu/p2/labs/07-nginx/site:/usr/share/nginx/html:ro -v /home/ubuntu/p2/labs/07-nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro nginx:alpine
+35472c0adbe1d01dea3a73693711930aedbaf5ad23690277f5727709d5bb0d2c
+
+$ http -i http://localhost:8081
+HTTP/1.1 200 OK
+Server: nginx/1.31.9
+Date: Thu, 19 Nov 2026 00:04:02 GMT
+Content-Type: text/html
+Content-Length: 752
+Last-Modified: Wed, 18 Nov 2026 23:41:33 GMT
+Connection: keep-alive
+ETag: "6afe37ad-2f0"
+X-Servido-Por: Nginx-Unifeg-Lab07
+Accept-Ranges: bytes
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Unifeg — Nginx em container</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #0d1b2a; color: #e0e6ed; display: flex; justify-content: center; padding: 3rem 1rem; }
+    main { max-width: 640px; background: #1b2a3d; border-top: 6px solid #009639; border-radius: 4px; padding: 2rem; }
+    h1 { color: #4caf50; }
+    a { color: #7fd3ff; }
+    code { background: #0d1b2a; padding: 0 4px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Servido pelo Nginx</h1>
+    <p>Página estática de <code>site/</code>. Veja também o
+       <a href="/api/status">proxy reverso para a API</a> em <code>/api/</code>.</p>
+  </main>
+</body>
+</html>
+
+$ http http://localhost:8081/api/status
+{"servico":"backend-lab07","status":"ok","hostname":"f380458e6773","caminhoRecebido":"/status"}
+$ docker exec lab-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+
+$ docker exec lab-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+
+$ docker exec lab-nginx nginx -s reload
+2026/11/19 00:04:04 [notice] 48#48: signal process started
+
+$ http http://localhost:8081/saude/
+{"servico":"backend-lab07","status":"ok","hostname":"f380458e6773","caminhoRecebido":"/status"}
+$ docker rm -f lab-nginx backend
+lab-nginx
+backend
+
+$ docker network rm rede-lab07
+rede-lab07

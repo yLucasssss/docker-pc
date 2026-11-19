@@ -1,0 +1,4 @@
+$ docker compose ps
+NAME                              IMAGE                COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+lab10-pgadmin-compose-db-1        postgres:16-alpine   "docker-entrypoint.s…"   db        18 minutes ago   Up 18 minutes (healthy)   5432/tcp
+lab10-pgadmin-compose-pgadmin-1   dpage/pgadmin4:8     "/entrypoint.sh"         pgadmin   18 minutes ago   Up 18 minutes             443/tcp, 0.0.0.0:8082->80/tcp, [::]:8082->80/tcp

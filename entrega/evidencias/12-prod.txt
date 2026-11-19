@@ -1,0 +1,10 @@
+$ http -I http://localhost:8090
+HTTP/1.1 200 OK
+Server: nginx/1.31.9
+Date: Thu, 19 Nov 2026 00:16:20 GMT
+Content-Type: text/html
+Content-Length: 351
+Last-Modified: Thu, 19 Nov 2026 00:16:09 GMT
+Connection: keep-alive
+ETag: "6afe3fc9-15f"
+Accept-Ranges: bytes

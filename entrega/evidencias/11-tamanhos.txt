@@ -1,0 +1,4 @@
+$ docker image ls app-multistage
+IMAGE                   ID             DISK USAGE   CONTENT SIZE   EXTRA
+app-multistage:multi    49240cdb6e0f        224MB         51.9MB
+app-multistage:single   a75b362bf5ed       1.65GB          412MB

@@ -1,0 +1,6 @@
+A página React carregou a tabela com RA, nome, período e ações após a chamada GET /api/alunos.
+RA	Nome	Período	Ações
+2021001	Ana Souza	8	Excluir
+2021002	Bruno Lima	8	Excluir
+2021003	Carla Prado	8	Excluir
+2021004	Lucas Araujo — teste P2	8	Excluir

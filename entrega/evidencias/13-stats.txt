@@ -1,0 +1,3 @@
+$ docker stats --no-stream 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc
+CONTAINER ID   NAME                             CPU %     MEM USAGE / LIMIT   MEM %     NET I/O           BLOCK I/O   PIDS
+65671559b9ff   lab13-registry-seguranca-app-1   0.00%     8.023MiB / 128MiB   6.27%     2.41kB / 1.65kB   0B / 0B     7

@@ -1,0 +1,12 @@
+$ http -i http://localhost:8080/sobre.html
+HTTP/1.1 200 OK
+Date: Thu, 19 Nov 2026 00:03:50 GMT
+Server: Apache/2.4.71 (Unix)
+Last-Modified: Thu, 19 Nov 2026 00:03:50 GMT
+ETag: W/"2e-66095dcc47586"
+Accept-Ranges: bytes
+Content-Length: 46
+X-Servido-Por: Apache-Unifeg-Lab06
+Content-Type: text/html
+
+<h1>Sobre o laboratório de Lucas Araujo</h1>

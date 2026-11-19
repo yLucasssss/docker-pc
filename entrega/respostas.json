@@ -1,0 +1,75 @@
+{
+  "01": [
+    "Não. Com --rm, o daemon remove o container e a camada gravável quando o comando echo termina. A imagem Alpine continua disponível no cache local.",
+    "docker stop encerra os processos, dando ao processo principal tempo para terminar, e preserva o container e sua camada gravável. docker rm elimina o container parado. Um volume nomeado continua existindo até ser removido separadamente.",
+    "O shell não fica interativo. -i mantém a entrada padrão aberta. -t aloca um pseudoterminal, que dá ao shell o comportamento de um terminal interativo.",
+    "Cada execução cria um container com camada gravável e rede próprias na máquina que o executa. Um compartilhamento entre máquinas exigiria um armazenamento ou um serviço externo configurado explicitamente."
+  ],
+  "02": [
+    "O pacote foi gravado na camada gravável do container lab-ubuntu. Retomar o mesmo container reutiliza essa camada. Um container novo parte do conteúdo da imagem ubuntu:24.04 e de uma camada inicialmente vazia.",
+    "Sim, desde que o pacote tenha sido instalado na camada gravável. Um commit captura o estado resultante, mas não descreve as etapas, as versões e a origem dos arquivos. Um Dockerfile permite revisar e repetir a construção.",
+    "O container usa o kernel Linux do host que executa o daemon. No Windows, containers Linux precisam de um kernel Linux em WSL 2 ou em uma máquina virtual. O Ubuntu da imagem fornece os programas e bibliotecas de espaço de usuário."
+  ],
+  "03": [
+    "Ao repetir o mesmo build, as instruções e os arquivos de entrada tinham as mesmas chaves de cache. O BuildKit pôde reaproveitar as camadas, inclusive a instalação de dependências. A evidência de cache está nas linhas CACHED do segundo build.",
+    "A primeira camada invalidada é COPY app/server.js. O arquivo de dependências e a instrução de instalação vêm antes, então a camada do npm pôde ser reutilizada. A instrução posterior é reavaliada a partir da camada que mudou.",
+    "Editar server.js invalidaria o COPY inicial e as camadas dependentes, incluindo npm install. Colocar os arquivos de dependência antes do código evita repetir essa etapa a cada alteração no servidor.",
+    "O .dockerignore exclui arquivos do contexto enviado ao builder. Enviar node_modules aumenta a transferência e pode levar módulos compilados para outro sistema operacional à imagem, especialmente quando o Dockerfile usa um COPY abrangente."
+  ],
+  "04": [
+    "O contador voltou a 1. Cada --tmpfs criou um sistema de arquivos em memória para aquele container. No final da primeira execução esse sistema desapareceu, então a segunda não encontrou o contador anterior.",
+    "O bind mount aponta para um caminho escolhido no sistema de arquivos do host. O named volume tem nome e ciclo de vida gerenciados pelo Docker. O daemon determina o Mountpoint, que pode estar dentro da VM do Docker.",
+    "Um volume gerenciado evita depender de um caminho específico da máquina e mantém os dados quando o container é recriado. O banco ainda precisa de backup. Remover o volume explicitamente apaga seus dados."
+  ],
+  "05": [
+    "Na rede bridge definida pelo usuário, o DNS integrado resolve servidor para o endereço do container naquela rede. A bridge padrão não dá a mesma resolução automática por nome de container.",
+    "A conexão usou a publicação 8080:80. O cliente no host se conectou à porta 8080 e o Docker encaminhou para a porta 80 do container. O DNS interno é usado para resolver nomes de serviços entre containers da rede.",
+    "Sim. Cada container tem seu próprio namespace de rede e pode escutar na porta 80. No mesmo endereço do host, uma publicação 8080:80 já ocupa a porta 8080 e a segunda entra em conflito."
+  ],
+  "06": [
+    "X-Servido-Por: Apache-Unifeg-Lab06 é definido na configuração da prática. Sua presença na resposta confirma que o Apache leu o httpd.conf montado a partir da pasta conf.",
+    "O bind mount deixa o arquivo do host visível ao Apache em tempo de execução. Ao receber outra requisição, o servidor lê a versão atual do arquivo. A imagem e o processo do Apache podem continuar os mesmos.",
+    "Se o processo tivesse permissões de escrita, retirar :ro permitiria alterar o arquivo compartilhado no host. Montá-lo somente para leitura protege a configuração de escritas dentro do container. Uma mudança na configuração carregada pede recarga ou reinício do Apache."
+  ],
+  "07": [
+    "O backend recebe /status. O location /api/ combina com o caminho público e proxy_pass termina em /. A URI configurada substitui o prefixo /api/ antes de o Nginx enviar a requisição.",
+    "Com o nome ausente no momento da inicialização, esse nginx.conf estático pode falhar na resolução do upstream e o serviço nem fica disponível. Um Nginx iniciado que deixe de conseguir conectar-se ao backend pode responder 502 Bad Gateway.",
+    "Um proxy reverso pode centralizar TLS, roteamento, logs e limites de requisição. O Nginx também pode servir arquivos estáticos enquanto a API fica na rede interna e o Apache pode atender sites ou atuar como proxy, conforme a configuração."
+  ],
+  "08": [
+    "Nginx e backend compartilham a rede do Compose. O DNS da rede resolve backend, e a comunicação usa a porta interna 4000. A publicação em ports é necessária quando clientes fora da rede precisam acessar o serviço via host.",
+    "O Compose descreve três containers, Apache, Nginx e backend, além da rede e dos mounts. Versionar o YAML permite auditar mudanças e repetir a mesma topologia em outras máquinas.",
+    "A camada gravável dos containers removidos é descartada. O site do Apache e as configurações montadas continuam nas pastas do host. O backend pode ser recriado com sua imagem e esta prática não configura armazenamento persistente para o estado interno dele."
+  ],
+  "09": [
+    "Recriar o container com pgdata-lab09 reutiliza o diretório de dados e preserva as tabelas. A remoção explícita do volume apaga esse estado, e uma nova inicialização executa novamente o schema e o seed quando o diretório de dados está vazio.",
+    "O entrypoint oficial verifica se já existe um cluster PostgreSQL no diretório de dados. Os scripts de inicialização servem para preparar um cluster novo. Para alterar um banco existente, aplicam-se migrações ou comandos SQL explícitos.",
+    "Uma senha na linha do comando pode parar no histórico, em logs ou na lista de processos. Um .env fora do Git reduz a exposição no histórico do shell. Valores entregues como variáveis ainda podem ser acessados por quem tem acesso administrativo ao daemon."
+  ],
+  "10": [
+    "O Compose poderia iniciar o pgAdmin assim que o processo do banco fosse lançado, enquanto o PostgreSQL ainda prepara seus arquivos e não aceita conexões. O healthcheck oferece um sinal de prontidão e pode evitar falhas de conexão nessa janela.",
+    "O servers.json configura endereço, porta, identificação e usuário. A senha fica fora do arquivo versionado. O pgAdmin solicita a senha ao conectar usando as credenciais do ambiente do laboratório.",
+    "A prática 10 tem seu próprio volume e recebe os registros dos seus scripts de seed. down sem -v preserva o estado da prática 10, inclusive alterações que foram feitas nela. Alterações feitas apenas no volume pgdata-lab09 ficam na prática 09."
+  ],
+  "11": [
+    "A versão de runtime usa a base Node Alpine e copia apenas os artefatos compilados e o que for necessário para executá-los. O compilador TypeScript e as dependências de desenvolvimento ficam no estágio builder.",
+    "O builder produz camadas que podem ficar no cache do BuildKit até a limpeza do cache. Ele só vira uma imagem nomeada e diretamente utilizável no docker image ls se for exportado explicitamente, por exemplo com --target e uma tag.",
+    "A requisição confirma o comportamento observado naquele caminho. A equivalência para produção também depende de outros endpoints, bibliotecas nativas, portas, sinais, healthchecks e consumo de recursos."
+  ],
+  "12": [
+    "O bind mount de app-react em /app encobriria os node_modules instalados na imagem se o host não os tivesse. O Vite ou outra dependência poderia deixar de ser encontrada. O volume separado em /app/node_modules mantém as dependências acessíveis no container.",
+    "A imagem de desenvolvimento fornece Node e as dependências necessárias para rodar Vite com os arquivos montados. A de produção compila o aplicativo em um estágio e copia o diretório dist para a imagem final com Nginx.",
+    "O Nginx serve os arquivos estáticos compilados com configuração de cache e fallback para rotas do navegador. O runtime final dispensa Node e o servidor de desenvolvimento. npm run preview serve para testar o build em um ambiente de prévia."
+  ],
+  "13": [
+    "Um usuário sem privilégios reduz a capacidade de modificar arquivos do sistema e o impacto de um erro no aplicativo. Esse controle complementa os demais mecanismos de isolamento do container.",
+    "O Compose montou o segredo como arquivo usando secrets. A variável DB_PASSWORD_FILE aponta para o caminho do arquivo. Colocar o conteúdo em uma variável comum poderia expô-lo na configuração inspecionada do container e ao despejar o ambiente.",
+    "O cgroup aplica o limite de 128 MiB. Sob pressão de memória o kernel pode encerrar processos do container. Se encerrar o processo principal, o container pode parar, frequentemente com código 137 e indicação OOMKilled em docker inspect."
+  ],
+  "14": [
+    "O navegador envia GET para a porta 8084 do host, publicada para a porta 80 do container frontend. O Nginx do frontend encaminha /api/alunos pela rede rede-integrador para backend:4000. O backend consulta db:5432 e devolve o JSON ao Nginx, que entrega a resposta ao navegador.",
+    "Backend e banco são serviços internos acessíveis pelo nome na rede Compose. Publicar só as portas do frontend e do pgAdmin permite que o navegador acesse as interfaces previstas e reduz a exposição direta da API e do PostgreSQL.",
+    "Na primeira subida o PostgreSQL ainda pode estar executando os scripts de inicialização. Se o backend tentar consultar nesse momento, pode receber conexão recusada ou devolver erro ao cliente antes de o banco ficar pronto. O healthcheck reduz essa corrida.",
+    "O React executado no navegador usa HTTP para chamar a API via proxy do Nginx. A API em Node é quem conversa com PostgreSQL usando o protocolo do banco."
+  ]
+}

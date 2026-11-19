@@ -1,0 +1,34 @@
+Prática 10 — 10-pgadmin-compose — 2026-11-19T00:05:49+00:00
+
+$ compose_config
+db
+pgadmin
+
+$ docker compose up -d --wait --wait-timeout 240
+ Network lab10-pgadmin-compose_rede-lab10 Creating
+ Volume lab10-pgadmin-compose_pgdata Creating
+ Volume lab10-pgadmin-compose_pgadmin_data Creating
+ Volume lab10-pgadmin-compose_pgadmin_data Created
+ Volume lab10-pgadmin-compose_pgdata Created
+ Network lab10-pgadmin-compose_rede-lab10 Created
+ Container lab10-pgadmin-compose-db-1 Creating
+ Container lab10-pgadmin-compose-db-1 Created
+ Container lab10-pgadmin-compose-pgadmin-1 Creating
+ Container lab10-pgadmin-compose-pgadmin-1 Created
+ Container lab10-pgadmin-compose-db-1 Starting
+ Container lab10-pgadmin-compose-db-1 Started
+ Container lab10-pgadmin-compose-db-1 Waiting
+ Container lab10-pgadmin-compose-db-1 Healthy
+ Container lab10-pgadmin-compose-pgadmin-1 Starting
+ Container lab10-pgadmin-compose-pgadmin-1 Started
+ Container lab10-pgadmin-compose-pgadmin-1 Waiting
+ Container lab10-pgadmin-compose-db-1 Waiting
+ Container lab10-pgadmin-compose-db-1 Healthy
+ Container lab10-pgadmin-compose-pgadmin-1 Healthy
+URL indisponível: http://localhost:8082/login
+CONTAINER ID   IMAGE                COMMAND                  CREATED          STATUS                      PORTS                                              NAMES
+f16f8fd64951   dpage/pgadmin4:8     "/entrypoint.sh"         2 minutes ago    Up 2 minutes                443/tcp, 0.0.0.0:8083->80/tcp, [::]:8083->80/tcp   lab14-projeto-integrador-pgadmin-1
+96a1153db100   postgres:16-alpine   "docker-entrypoint.s…"   2 minutes ago    Up 2 minutes (healthy)      5432/tcp                                           lab14-projeto-integrador-db-1
+5465b7518206   dpage/pgadmin4:8     "/entrypoint.sh"         5 minutes ago    Up 5 minutes                443/tcp, 0.0.0.0:8082->80/tcp, [::]:8082->80/tcp   lab10-pgadmin-compose-pgadmin-1
+50692622982d   postgres:16-alpine   "docker-entrypoint.s…"   5 minutes ago    Up 5 minutes (healthy)      5432/tcp                                           lab10-pgadmin-compose-db-1
+e968dab9698f   hello-world          "/hello"                 12 minutes ago   Exited (0) 12 minutes ago                                                      boring_proskuriakova

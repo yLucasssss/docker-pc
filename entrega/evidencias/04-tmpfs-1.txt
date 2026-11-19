@@ -1,0 +1,4 @@
+$ docker run --rm -v /home/ubuntu/p2/labs/04-volumes-bind-mounts/scripts:/scripts:ro --tmpfs /dados alpine sh /scripts/contador.sh
+Contador atual: 1
+--- historico (log.txt) ---
+2026-11-19 00:02:56 - execucao numero 1

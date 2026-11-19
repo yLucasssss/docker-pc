@@ -1,0 +1,6 @@
+$ docker compose ps
+NAME                                  IMAGE                               COMMAND                  SERVICE    CREATED          STATUS                    PORTS
+lab14-projeto-integrador-backend-1    lab14-projeto-integrador-backend    "docker-entrypoint.s…"   backend    13 seconds ago   Up 12 seconds (healthy)   4000/tcp
+lab14-projeto-integrador-db-1         postgres:16-alpine                  "docker-entrypoint.s…"   db         8 minutes ago    Up 8 minutes (healthy)    5432/tcp
+lab14-projeto-integrador-frontend-1   lab14-projeto-integrador-frontend   "/docker-entrypoint.…"   frontend   13 seconds ago   Up 11 seconds             0.0.0.0:8084->80/tcp, [::]:8084->80/tcp
+lab14-projeto-integrador-pgadmin-1    dpage/pgadmin4:8                    "/entrypoint.sh"         pgadmin    8 minutes ago    Up 8 minutes              443/tcp, 0.0.0.0:8083->80/tcp, [::]:8083->80/tcp

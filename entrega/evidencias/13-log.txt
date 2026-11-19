@@ -1,0 +1,332 @@
+Prática 13 — 13-registry-seguranca — 2026-11-19T00:16:21+00:00
+
+$ docker compose up -d --build --wait --wait-timeout 240
+ Image registry:2 Pulling
+ bbbdd6c6894b Pulling fs layer 0B
+ 6d464ea18732 Pulling fs layer 0B
+ 8e82f80af0de Pulling fs layer 0B
+ 3493bf46cdec Pulling fs layer 0B
+ 44cf07d57ee4 Pulling fs layer 0B
+ 6d464ea18732 Download complete 0B
+ bbbdd6c6894b Download complete 0B
+ 44cf07d57ee4 Downloading 1.049MB
+ 44cf07d57ee4 Downloading 2.097MB
+ 3493bf46cdec Download complete 0B
+ 44cf07d57ee4 Downloading 2.097MB
+ 44cf07d57ee4 Downloading 3.418MB
+ 8e82f80af0de Downloading 1.049MB
+ 44cf07d57ee4 Download complete 0B
+ 44cf07d57ee4 Extracting 1B
+ 8e82f80af0de Downloading 3.363MB
+ 44cf07d57ee4 Extracting 1B
+ 8e82f80af0de Downloading 5.243MB
+ b537bf6d1146 Download complete 0B
+ 44cf07d57ee4 Extracting 1B
+ 32a76c78501f Download complete 0B
+ 8e82f80af0de Download complete 0B
+ 44cf07d57ee4 Extracting 1B
+ 44cf07d57ee4 Extracting 1B
+ 44cf07d57ee4 Extracting 1B
+ 44cf07d57ee4 Extracting 1B
+ 44cf07d57ee4 Extracting 1B
+ 44cf07d57ee4 Extracting 1B
+ 44cf07d57ee4 Pull complete 0B
+ bbbdd6c6894b Extracting 1B
+ bbbdd6c6894b Extracting 1B
+ bbbdd6c6894b Extracting 1B
+ bbbdd6c6894b Extracting 1B
+ bbbdd6c6894b Extracting 1B
+ bbbdd6c6894b Pull complete 0B
+ 8e82f80af0de Extracting 1B
+ 8e82f80af0de Extracting 1B
+ 8e82f80af0de Extracting 1B
+ 8e82f80af0de Extracting 1B
+ 8e82f80af0de Extracting 1B
+ 8e82f80af0de Extracting 1B
+ 8e82f80af0de Extracting 1B
+ 3493bf46cdec Extracting 1B
+ 8e82f80af0de Pull complete 0B
+ 3493bf46cdec Pull complete 0B
+ 6d464ea18732 Pull complete 0B
+ Image registry:2 Pulled
+ Image lab13-registry-seguranca-app Building
+#1 [internal] load local bake definitions
+#1 reading from stdin 566B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 419B 0.0s done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/node:20-alpine
+#3 DONE 0.1s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.1s
+
+#5 [internal] load build context
+#5 DONE 0.0s
+
+#6 [1/4] FROM docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293
+#6 resolve docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293 0.1s done
+#6 DONE 0.1s
+
+#5 [internal] load build context
+#5 transferring context: 1.19kB 0.0s done
+#5 DONE 0.1s
+
+#7 [2/4] WORKDIR /app
+#7 CACHED
+
+#8 [3/4] COPY server.js ./
+#8 DONE 0.2s
+
+#9 [4/4] RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+#9 DONE 1.3s
+
+#10 exporting to image
+#10 exporting layers
+#10 exporting layers 0.3s done
+#10 exporting manifest sha256:507a0ea01523e5ef9a58dedeeecb6f8d9196cbb607829033d6d5023da72c75c0 0.0s done
+#10 exporting config sha256:350b42ba09130778b40872ffc2544b565f7b5476afec0bf583198f2302230f46 0.0s done
+#10 exporting attestation manifest sha256:e64deef281efffddad16e3a353ac3fdd6a5d1314c2932c35b7930329cb097af1
+#10 exporting attestation manifest sha256:e64deef281efffddad16e3a353ac3fdd6a5d1314c2932c35b7930329cb097af1 0.0s done
+#10 exporting manifest list sha256:b5d9d7958937996a7bd860f2b799968c4e29a46999ea7df5c7bd0f4755e42cb5 0.0s done
+#10 naming to docker.io/library/lab13-registry-seguranca-app:latest done
+#10 unpacking to docker.io/library/lab13-registry-seguranca-app:latest
+#10 unpacking to docker.io/library/lab13-registry-seguranca-app:latest 0.2s done
+#10 DONE 0.9s
+
+#11 resolving provenance for metadata file
+#11 DONE 0.1s
+ Image lab13-registry-seguranca-app Built
+ Volume lab13-registry-seguranca_registry_data Creating
+ Network lab13-registry-seguranca_default Creating
+ Volume lab13-registry-seguranca_registry_data Created
+ Network lab13-registry-seguranca_default Created
+ Container lab13-registry-seguranca-registry-1 Creating
+ Container lab13-registry-seguranca-app-1 Creating
+ Container lab13-registry-seguranca-app-1 Created
+ Container lab13-registry-seguranca-registry-1 Created
+ Container lab13-registry-seguranca-registry-1 Starting
+ Container lab13-registry-seguranca-app-1 Starting
+ Container lab13-registry-seguranca-registry-1 Started
+ Container lab13-registry-seguranca-app-1 Started
+ Container lab13-registry-seguranca-registry-1 Waiting
+ Container lab13-registry-seguranca-app-1 Waiting
+ Container lab13-registry-seguranca-registry-1 Healthy
+ Container lab13-registry-seguranca-app-1 Healthy
+
+$ docker compose ps
+NAME                                  IMAGE                          COMMAND                  SERVICE    CREATED          STATUS                    PORTS
+lab13-registry-seguranca-app-1        lab13-registry-seguranca-app   "docker-entrypoint.s…"   app        15 seconds ago   Up 13 seconds (healthy)   0.0.0.0:6000->6000/tcp, [::]:6000->6000/tcp
+lab13-registry-seguranca-registry-1   registry:2                     "/entrypoint.sh /etc…"   registry   15 seconds ago   Up 14 seconds             0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp
+
+$ http http://localhost:6000
+{"servico":"app-lab13","usuarioLinux":100,"segredoCarregadoViaSecretFile":"sim","segredoTamanho":44}
+$ http http://localhost:6000/saude
+{"status":"ok"}
+$ docker stats --no-stream 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc
+CONTAINER ID   NAME                             CPU %     MEM USAGE / LIMIT   MEM %     NET I/O           BLOCK I/O   PIDS
+65671559b9ff   lab13-registry-seguranca-app-1   0.00%     8.023MiB / 128MiB   6.27%     2.41kB / 1.65kB   0B / 0B     7
+
+$ docker compose exec -T app whoami
+appuser
+
+$ docker compose exec -T app sh -c test\ -s\ /run/secrets/db_password\ \&\&\ echo\ \"Arquivo\ de\ segredo\ montado\ e\ legível\"
+Arquivo de segredo montado e legível
+
+$ docker inspect --format \{\{json\ .State.Health\}\}\ CPU=\{\{.HostConfig.NanoCpus\}\}\ MEM=\{\{.HostConfig.Memory\}\} 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc
+{"FailingStreak":0,"Log":[{"End":"2026-11-19T00:16:47.773175859Z","ExitCode":0,"Output":"{\"status\":\"ok\"}","Start":"2026-11-19T00:16:47.102926047Z"}],"Status":"healthy"} CPU=500000000 MEM=134217728
+
+$ docker build -t app-lab13:1.0 ./app
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 DONE 0.0s
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 419B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:20-alpine
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 DONE 0.0s
+
+#5 [1/4] FROM docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293
+#5 resolve docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293 0.1s done
+#5 DONE 0.1s
+
+#4 [internal] load build context
+#4 transferring context: 31B done
+#4 DONE 0.0s
+
+#6 [2/4] WORKDIR /app
+#6 CACHED
+
+#7 [3/4] COPY server.js ./
+#7 CACHED
+
+#8 [4/4] RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+#8 CACHED
+
+#9 exporting to image
+#9 exporting layers 0.0s done
+#9 exporting manifest sha256:7bf9e4cba1b035348cde9633e41bdf1646f5e8c6fbdb710fa92bea0719325c0c 0.0s done
+#9 exporting config sha256:94ab0d24d61f90709abd6b6b02d65b465143759b03394fab641278d0150b46c2 0.0s done
+#9 exporting attestation manifest sha256:4d7d33dd9c95205757d3d39aab32d759ae37918e968eaa477a3af08f21e116c8 0.0s done
+#9 exporting manifest list sha256:6cc2f2323e7cd44af4558b25b4f3029962da7a2332b785a962f497f73974e2d0 0.0s done
+#9 naming to docker.io/library/app-lab13:1.0
+#9 naming to docker.io/library/app-lab13:1.0 0.0s done
+#9 unpacking to docker.io/library/app-lab13:1.0 0.0s done
+#9 DONE 0.4s
+
+$ docker tag app-lab13:1.0 localhost:5000/app-lab13:1.0
+
+$ docker push localhost:5000/app-lab13:1.0
+The push refers to repository [localhost:5000/app-lab13]
+da5c77dea445: Waiting
+4feea04c1543: Waiting
+44136fa355b3: Waiting
+6a0ac1617861: Waiting
+da5c77dea445: Waiting
+4feea04c1543: Waiting
+44136fa355b3: Waiting
+6a0ac1617861: Waiting
+b2cbbfe903b0: Waiting
+cf3f2958c2dc: Waiting
+44136fa355b3: Pushed
+da5c77dea445: Pushed
+fff4e2c1b189: Waiting
+cf3f2958c2dc: Waiting
+b2cbbfe903b0: Waiting
+fff4e2c1b189: Pushed
+cf3f2958c2dc: Pushed
+bd6d7b23da46: Waiting
+45836d15c2bd: Waiting
+bd6d7b23da46: Pushed
+45836d15c2bd: Pushed
+b2cbbfe903b0: Pushed
+6a0ac1617861: Pushed
+4feea04c1543: Pushed
+1.0: digest: sha256:6cc2f2323e7cd44af4558b25b4f3029962da7a2332b785a962f497f73974e2d0 size: 856
+
+$ docker rmi app-lab13:1.0 localhost:5000/app-lab13:1.0
+Untagged: app-lab13:1.0
+Untagged: localhost:5000/app-lab13:1.0
+Deleted: sha256:6cc2f2323e7cd44af4558b25b4f3029962da7a2332b785a962f497f73974e2d0
+
+$ docker pull localhost:5000/app-lab13:1.0
+1.0: Pulling from app-lab13
+b2cbbfe903b0: Pulling fs layer
+fff4e2c1b189: Pulling fs layer
+bd6d7b23da46: Pulling fs layer
+6a0ac1617861: Pulling fs layer
+cf3f2958c2dc: Pulling fs layer
+4feea04c1543: Pulling fs layer
+45836d15c2bd: Pulling fs layer
+cf3f2958c2dc: Already exists
+fff4e2c1b189: Already exists
+bd6d7b23da46: Already exists
+6a0ac1617861: Already exists
+4feea04c1543: Already exists
+45836d15c2bd: Already exists
+b2cbbfe903b0: Already exists
+da5c77dea445: Download complete
+44136fa355b3: Already exists
+Digest: sha256:6cc2f2323e7cd44af4558b25b4f3029962da7a2332b785a962f497f73974e2d0
+Status: Downloaded newer image for localhost:5000/app-lab13:1.0
+localhost:5000/app-lab13:1.0
+
+$ http http://localhost:5000/v2/_catalog
+{"repositories":["app-lab13"]}
+
+$ docker compose logs app
+app-1  | app-lab13 ouvindo na porta 6000
+
+$ docker compose exec -T app sh -c printf\ \"DB_PASSWORD_FILE=%s\\n\"\ \"\$DB_PASSWORD_FILE\"
+DB_PASSWORD_FILE=/run/secrets/db_password
+
+$ timeout 5 docker compose events --since 5m
+2026-11-19 00:16:34.725665 container create 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc (image=lab13-registry-seguranca-app, name=lab13-registry-seguranca-app-1)
+
+2026-11-19 00:16:34.725824 container create 0f1cb506352b6b2e2249f9be5be1a54ea2cadd664a1bc0506f39569031d2d286 (image=registry:2, name=lab13-registry-seguranca-registry-1)
+
+2026-11-19 00:16:35.859232 container start 0f1cb506352b6b2e2249f9be5be1a54ea2cadd664a1bc0506f39569031d2d286 (image=registry:2, name=lab13-registry-seguranca-registry-1)
+
+2026-11-19 00:16:37.100059 container start 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc (image=lab13-registry-seguranca-app, name=lab13-registry-seguranca-app-1)
+
+2026-11-19 00:16:47.103225 container exec_create: /bin/sh -c wget -qO- http://localhost:6000/saude || exit 1 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc (image=lab13-registry-seguranca-app, name=lab13-registry-seguranca-app-1, execID=69c09a4cae134874edb51f24f7cf79748753637dc237fb407339e4697ce79614)
+
+2026-11-19 00:16:47.103542 container exec_start: /bin/sh -c wget -qO- http://localhost:6000/saude || exit 1 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc (execID=69c09a4cae134874edb51f24f7cf79748753637dc237fb407339e4697ce79614, image=lab13-registry-seguranca-app, name=lab13-registry-seguranca-app-1)
+
+2026-11-19 00:16:47.772529 container exec_die 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc (name=lab13-registry-seguranca-app-1, execID=69c09a4cae134874edb51f24f7cf79748753637dc237fb407339e4697ce79614, exitCode=0, image=lab13-registry-seguranca-app)
+
+2026-11-19 00:16:47.776925 container health_status: healthy 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc (name=lab13-registry-seguranca-app-1, image=lab13-registry-seguranca-app)
+
+2026-11-19 00:16:52.507957 container exec_create: whoami  65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc (name=lab13-registry-seguranca-app-1, image=lab13-registry-seguranca-app, execID=094ed7730732abeacc0d4d224f75bb97542660e54b557baa58e13f794ddd0533)
+
+2026-11-19 00:16:52.511742 container exec_start: whoami  65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc (name=lab13-registry-seguranca-app-1, execID=094ed7730732abeacc0d4d224f75bb97542660e54b557baa58e13f794ddd0533, image=lab13-registry-seguranca-app)
+
+2026-11-19 00:16:52.862171 container exec_die 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc (execID=094ed7730732abeacc0d4d224f75bb97542660e54b557baa58e13f794ddd0533, image=lab13-registry-seguranca-app, name=lab13-registry-seguranca-app-1, exitCode=0)
+
+2026-11-19 00:16:53.719185 container exec_create: sh -c test -s /run/secrets/db_password && echo "Arquivo de segredo montado e legível" 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc (name=lab13-registry-seguranca-app-1, execID=33d5b285b1d9600e659a7707980cc03d065681cd43eb7d7ca46d2cf95218ff5d, image=lab13-registry-seguranca-app)
+
+2026-11-19 00:16:53.723139 container exec_start: sh -c test -s /run/secrets/db_password && echo "Arquivo de segredo montado e legível" 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc (execID=33d5b285b1d9600e659a7707980cc03d065681cd43eb7d7ca46d2cf95218ff5d, image=lab13-registry-seguranca-app, name=lab13-registry-seguranca-app-1)
+
+2026-11-19 00:16:54.153145 container exec_die 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc (execID=33d5b285b1d9600e659a7707980cc03d065681cd43eb7d7ca46d2cf95218ff5d, name=lab13-registry-seguranca-app-1, exitCode=0, image=lab13-registry-seguranca-app)
+
+2026-11-19 00:16:57.777919 container exec_create: /bin/sh -c wget -qO- http://localhost:6000/saude || exit 1 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc (execID=517ef7c08e2bb72d7e05f4a8d703c8f0ba0c4620d6c70a560a7638e023f28a56, image=lab13-registry-seguranca-app, name=lab13-registry-seguranca-app-1)
+
+2026-11-19 00:16:57.778095 container exec_start: /bin/sh -c wget -qO- http://localhost:6000/saude || exit 1 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc (name=lab13-registry-seguranca-app-1, execID=517ef7c08e2bb72d7e05f4a8d703c8f0ba0c4620d6c70a560a7638e023f28a56, image=lab13-registry-seguranca-app)
+
+2026-11-19 00:16:58.416810 container exec_die 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc (execID=517ef7c08e2bb72d7e05f4a8d703c8f0ba0c4620d6c70a560a7638e023f28a56, exitCode=0, image=lab13-registry-seguranca-app, name=lab13-registry-seguranca-app-1)
+
+2026-11-19 00:17:03.776416 container exec_create: sh -c printf "DB_PASSWORD_FILE=%s\n" "$DB_PASSWORD_FILE" 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc (image=lab13-registry-seguranca-app, name=lab13-registry-seguranca-app-1, execID=48e5a6ead360aa9f354aed5afb31145708b84c81030cfaf966cde21775b3a110)
+
+2026-11-19 00:17:03.781254 container exec_start: sh -c printf "DB_PASSWORD_FILE=%s\n" "$DB_PASSWORD_FILE" 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc (execID=48e5a6ead360aa9f354aed5afb31145708b84c81030cfaf966cde21775b3a110, image=lab13-registry-seguranca-app, name=lab13-registry-seguranca-app-1)
+
+2026-11-19 00:17:04.158729 container exec_die 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc (exitCode=0, execID=48e5a6ead360aa9f354aed5afb31145708b84c81030cfaf966cde21775b3a110, image=lab13-registry-seguranca-app, name=lab13-registry-seguranca-app-1)
+
+2026-11-19 00:17:08.435578 container exec_create: /bin/sh -c wget -qO- http://localhost:6000/saude || exit 1 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc (name=lab13-registry-seguranca-app-1, execID=20ed259a4c3a724439d399b65932147570ece765651f931f6b8776bad160b024, image=lab13-registry-seguranca-app)
+
+2026-11-19 00:17:08.435961 container exec_start: /bin/sh -c wget -qO- http://localhost:6000/saude || exit 1 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc (image=lab13-registry-seguranca-app, name=lab13-registry-seguranca-app-1, execID=20ed259a4c3a724439d399b65932147570ece765651f931f6b8776bad160b024)
+
+2026-11-19 00:17:08.874905 container exec_die 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc (exitCode=0, image=lab13-registry-seguranca-app, execID=20ed259a4c3a724439d399b65932147570ece765651f931f6b8776bad160b024, name=lab13-registry-seguranca-app-1)
+
+
+
+$ docker compose kill -s SIGTERM app
+ Container lab13-registry-seguranca-app-1 Killing
+ Container lab13-registry-seguranca-app-1 Killed
+
+$ docker compose ps -a app
+NAME                             IMAGE                          COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+lab13-registry-seguranca-app-1   lab13-registry-seguranca-app   "docker-entrypoint.s…"   app       36 seconds ago   Up 34 seconds (healthy)   0.0.0.0:6000->6000/tcp, [::]:6000->6000/tcp
+
+$ docker inspect --format \{\{json\ .State\}\} 65671559b9ffba5f93ed38d7ad54d1309162a0f134daa689accdc5495cd60fbc
+{"Status":"running","Running":true,"Paused":false,"Restarting":false,"OOMKilled":false,"Dead":false,"Pid":34460,"ExitCode":0,"Error":"","StartedAt":"2026-11-19T00:16:35.923999239Z","FinishedAt":"0001-01-01T00:00:00Z","Health":{"Status":"healthy","FailingStreak":0,"Log":[{"Start":"2026-11-19T00:16:47.102926047Z","End":"2026-11-19T00:16:47.773175859Z","ExitCode":0,"Output":"{\"status\":\"ok\"}"},{"Start":"2026-11-19T00:16:57.777667958Z","End":"2026-11-19T00:16:58.420773838Z","ExitCode":0,"Output":"{\"status\":\"ok\"}"},{"Start":"2026-11-19T00:17:08.435326685Z","End":"2026-11-19T00:17:08.875054947Z","ExitCode":0,"Output":"{\"status\":\"ok\"}"}]}}
+
+$ docker compose logs app
+app-1  | app-lab13 ouvindo na porta 6000
+
+$ docker compose down -v
+ Container lab13-registry-seguranca-app-1 Stopping
+ Container lab13-registry-seguranca-registry-1 Stopping
+ Container lab13-registry-seguranca-registry-1 Stopped
+ Container lab13-registry-seguranca-registry-1 Removing
+ Container lab13-registry-seguranca-registry-1 Removed
+ Container lab13-registry-seguranca-app-1 Stopped
+ Container lab13-registry-seguranca-app-1 Removing
+ Container lab13-registry-seguranca-app-1 Removed
+ Volume lab13-registry-seguranca_registry_data Removing
+ Network lab13-registry-seguranca_default Removing
+ Volume lab13-registry-seguranca_registry_data Removed
+ Network lab13-registry-seguranca_default Removed

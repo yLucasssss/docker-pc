@@ -1,0 +1,18 @@
+$ docker image history app-fundamentos:1.0
+IMAGE          CREATED          CREATED BY                                      SIZE      COMMENT
+6276eec6084c   1 second ago     CMD ["node" "server.js"]                        0B        buildkit.dockerfile.v0
+<missing>      1 second ago     EXPOSE 3000/tcp                                 0B        buildkit.dockerfile.v0
+<missing>      1 second ago     ENV PORTA=3000                                  0B        buildkit.dockerfile.v0
+<missing>      1 second ago     COPY app/server.js ./ # buildkit                12.3kB    buildkit.dockerfile.v0
+<missing>      26 seconds ago   RUN /bin/sh -c npm install --omit=dev # buil…   28.7kB    buildkit.dockerfile.v0
+<missing>      35 seconds ago   COPY app/package.json ./ # buildkit             12.3kB    buildkit.dockerfile.v0
+<missing>      35 seconds ago   WORKDIR /app                                    8.19kB    buildkit.dockerfile.v0
+<missing>      7 months ago     CMD ["node"]                                    0B        buildkit.dockerfile.v0
+<missing>      7 months ago     ENTRYPOINT ["docker-entrypoint.sh"]             0B        buildkit.dockerfile.v0
+<missing>      7 months ago     COPY docker-entrypoint.sh /usr/local/bin/ # …   20.5kB    buildkit.dockerfile.v0
+<missing>      7 months ago     RUN /bin/sh -c apk add --no-cache --virtual …   5.48MB    buildkit.dockerfile.v0
+<missing>      7 months ago     ENV YARN_VERSION=1.22.22                        0B        buildkit.dockerfile.v0
+<missing>      7 months ago     RUN /bin/sh -c addgroup -g 1000 node     && …   130MB     buildkit.dockerfile.v0
+<missing>      7 months ago     ENV NODE_VERSION=20.20.2                        0B        buildkit.dockerfile.v0
+<missing>      7 months ago     CMD ["/bin/sh"]                                 0B        buildkit.dockerfile.v0
+<missing>      7 months ago     ADD alpine-minirootfs-3.23.4-x86_64.tar.gz /…   9.11MB    buildkit.dockerfile.v0

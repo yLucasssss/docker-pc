@@ -1,0 +1,7 @@
+$ http http://localhost:3000
+{
+  "mensagem": "Ola, Unifeg! Servidor rodando dentro de um container.",
+  "hostname": "b238676dee99",
+  "plataforma": "linux",
+  "versaoNode": "v20.20.2"
+}

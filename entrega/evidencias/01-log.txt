@@ -1,0 +1,190 @@
+Prática 01 — 01-fundamentos-containers — 2026-11-18T23:57:18+00:00
+
+$ docker version
+Client: Docker Engine - Community
+ Version:           29.10.0
+ API version:       1.57
+ Go version:        go1.27.4
+ Git commit:        fdd4b8e
+ Built:             Mon Nov 16 11:00:49 2026
+ OS/Arch:           linux/amd64
+ Context:           default
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          29.10.0
+  API version:      1.57 (minimum version 1.40)
+  Go version:       go1.27.4
+  Git commit:       06db173
+  Built:            Mon Nov 16 11:01:38 2026
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          v2.4.2
+  GitCommit:        b7a25261e029d68978bbf290df0a62fc819b3c51
+ runc:
+  Version:          1.5.3
+  GitCommit:        v1.5.3-0-g46365c62
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+
+$ docker compose version
+Docker Compose version v5.8.0
+
+$ docker info
+Client: Docker Engine - Community
+ Version:    29.10.0
+ Context:    default
+ Debug Mode: false
+ Plugins:
+  buildx: Docker Buildx (Docker Inc.)
+    Version:  v0.39.0
+    Path:     /usr/libexec/docker/cli-plugins/docker-buildx
+  compose: Docker Compose (Docker Inc.)
+    Version:  v5.8.0
+    Path:     /usr/libexec/docker/cli-plugins/docker-compose
+
+Server:
+ Containers: 0
+  Running: 0
+  Paused: 0
+  Stopped: 0
+ Images: 0
+ Server Version: 29.10.0
+ Storage Driver: overlayfs
+  driver-type: io.containerd.snapshotter.v1
+ Logging Driver: json-file
+ Cgroup Driver: systemd
+ Cgroup Version: 2
+ Plugins:
+  Volume: local
+  Network: bridge host ipvlan macvlan null overlay
+  Log: awslogs fluentd gcplogs gelf journald json-file local splunk syslog
+ CDI spec directories:
+  /etc/cdi
+  /var/run/cdi
+ Swarm: inactive
+ Runtimes: io.containerd.runc.v2 runc
+ Default Runtime: runc
+ Init Binary: docker-init
+ containerd version: b7a25261e029d68978bbf290df0a62fc819b3c51
+ runc version: v1.5.3-0-g46365c62
+ init version: de40ad0
+ Security Options:
+  apparmor
+   Profile: default
+  seccomp
+   Profile: builtin
+  cgroupns
+ Kernel Version: 6.8.0-147-generic
+ Operating System: Ubuntu 24.04.5 LTS
+ OSType: linux
+ Architecture: x86_64
+ CPUs: 6
+ Total Memory: 7.753GiB
+ Name: laboratorio-docker
+ ID: 93d1169a-39f1-4dfe-a1b6-0d1fb7f21c43
+ Docker Root Dir: /var/lib/docker
+ Debug Mode: false
+ Experimental: false
+ Insecure Registries:
+  127.0.0.0/8
+  ::1/128
+ Live Restore Enabled: false
+ Firewall Backend: iptables
+  EnableUserlandProxy: true
+  UserlandProxyPath: /usr/bin/docker-proxy
+
+
+$ id
+uid=1000(ubuntu) gid=1000(ubuntu) groups=1000(ubuntu),4(adm),24(cdrom),27(sudo),30(dip),101(lxd),991(docker)
+
+$ docker run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+4f55086f7dd0: Pulling fs layer
+4f55086f7dd0: Download complete
+4f55086f7dd0: Pull complete
+d5e71e642bf5: Download complete
+Digest: sha256:1e4c05b897a751332ce85c7e9449da2d93514ea2dea6dbb0e2753c9e949b2bfa
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+
+$ docker run --rm alpine echo Ola\,\ Unifeg
+Unable to find image 'alpine:latest' locally
+latest: Pulling from library/alpine
+881fc932939e: Pulling fs layer
+881fc932939e: Already exists
+c35a7d82b8fa: Download complete
+86ff264fe568: Download complete
+Digest: sha256:f59abe656b692d901e184be3445e084786602108599d2a51d229c0f5a48c71bf
+Status: Downloaded newer image for alpine:latest
+Ola, Unifeg
+
+$ script -q -e -c docker\ run\ -it\ --name\ meu-alpine\ alpine\ sh /dev/null
+hostname
+exit
+hostname
+exit
+/ # hostname
+0f05bd4d109d
+/ # exit
+
+$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+$ docker ps -a --filter name=meu-alpine
+CONTAINER ID   IMAGE     COMMAND   CREATED         STATUS                    PORTS     NAMES
+0f05bd4d109d   alpine    "sh"      3 seconds ago   Exited (0) 1 second ago             meu-alpine
+
+$ docker logs meu-alpine
+hostname
+exit
+/ # hostname
+0f05bd4d109d
+/ # exit
+
+$ docker rm meu-alpine
+meu-alpine
+
+$ docker run -d --name lucas-p2-1 alpine sleep 300
+469458edd481a48c39d308f21c39ebed4130de1a4a87378d2423cfe751136923
+
+$ docker run -d --name lucas-p2-2 alpine sleep 300
+42e1fc6443b076bb334cc548f4f2ef36646513b90e37bda06ad5004b073fbfe3
+
+$ docker run -d --name lucas-p2-3 alpine sleep 300
+9b119b3e2607ab6d0f8d1a94b0c7125a9432e0d82c41194e26126a94ff0e2444
+
+$ docker ps --filter name=\^/lucas-p2-
+CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS         PORTS     NAMES
+9b119b3e2607   alpine    "sleep 300"   3 seconds ago   Up 1 second              lucas-p2-3
+42e1fc6443b0   alpine    "sleep 300"   6 seconds ago   Up 4 seconds             lucas-p2-2
+469458edd481   alpine    "sleep 300"   9 seconds ago   Up 7 seconds             lucas-p2-1
+
+$ docker rm -f lucas-p2-1 lucas-p2-2 lucas-p2-3
+lucas-p2-1
+lucas-p2-2
+lucas-p2-3

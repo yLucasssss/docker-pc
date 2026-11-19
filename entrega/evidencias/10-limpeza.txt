@@ -1,0 +1,28 @@
+$ docker compose down
+ Container lab10-pgadmin-compose-verificador-1 Stopping
+ Container lab10-pgadmin-compose-verificador-1 Stopped
+ Container lab10-pgadmin-compose-verificador-1 Removing
+ Container lab10-pgadmin-compose-verificador-1 Removed
+ Container lab10-pgadmin-compose-pgadmin-1 Stopping
+ Container lab10-pgadmin-compose-pgadmin-1 Stopped
+ Container lab10-pgadmin-compose-pgadmin-1 Removing
+ Container lab10-pgadmin-compose-pgadmin-1 Removed
+ Container lab10-pgadmin-compose-db-1 Stopping
+ Container lab10-pgadmin-compose-db-1 Stopped
+ Container lab10-pgadmin-compose-db-1 Removing
+ Container lab10-pgadmin-compose-db-1 Removed
+ Network lab10-pgadmin-compose_default Removing
+ Network lab10-pgadmin-compose_rede-lab10 Removing
+ Network lab10-pgadmin-compose_default Removed
+ Network lab10-pgadmin-compose_rede-lab10 Removed
+$ docker volume ls --filter label=com.docker.compose.project=lab10-pgadmin-compose
+DRIVER    VOLUME NAME
+local     lab10-pgadmin-compose_pgadmin_data
+local     lab10-pgadmin-compose_pgdata
+$ docker compose down -v
+ Volume lab10-pgadmin-compose_pgadmin_data Removing
+ Volume lab10-pgadmin-compose_pgdata Removing
+ Volume lab10-pgadmin-compose_pgadmin_data Removed
+ Volume lab10-pgadmin-compose_pgdata Removed
+$ docker volume ls --filter label=com.docker.compose.project=lab10-pgadmin-compose
+DRIVER    VOLUME NAME

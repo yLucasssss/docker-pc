@@ -1,0 +1,12 @@
+$ docker volume inspect dados-contador
+[
+    {
+        "CreatedAt": "2026-11-19T00:02:51Z",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/dados-contador/_data",
+        "Name": "dados-contador",
+        "Options": null,
+        "Scope": "local"
+    }
+]

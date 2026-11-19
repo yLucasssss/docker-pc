@@ -1,0 +1,5 @@
+$ docker compose ps
+NAME                                  IMAGE                               COMMAND                  SERVICE   CREATED         STATUS                   PORTS
+lab08-compose-fundamentos-apache-1    httpd:2.4                           "httpd-foreground"       apache    8 seconds ago   Up 6 seconds             0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
+lab08-compose-fundamentos-backend-1   lab08-compose-fundamentos-backend   "docker-entrypoint.s…"   backend   8 seconds ago   Up 6 seconds (healthy)   4000/tcp
+lab08-compose-fundamentos-nginx-1     nginx:alpine                        "/docker-entrypoint.…"   nginx     8 seconds ago   Up 5 seconds             0.0.0.0:8081->80/tcp, [::]:8081->80/tcp

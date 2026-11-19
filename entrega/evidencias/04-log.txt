@@ -1,0 +1,74 @@
+Prática 04 — 04-volumes-bind-mounts — 2026-11-19T00:02:45+00:00
+
+$ docker run --rm -v /home/ubuntu/p2/labs/04-volumes-bind-mounts/scripts:/scripts:ro -v /home/ubuntu/p2/labs/04-volumes-bind-mounts/dados:/dados alpine sh /scripts/contador.sh
+Contador atual: 1
+--- historico (log.txt) ---
+2026-11-19 00:02:47 - execucao numero 1
+
+$ docker run --rm -v /home/ubuntu/p2/labs/04-volumes-bind-mounts/scripts:/scripts:ro -v /home/ubuntu/p2/labs/04-volumes-bind-mounts/dados:/dados alpine sh /scripts/contador.sh
+Contador atual: 2
+--- historico (log.txt) ---
+2026-11-19 00:02:47 - execucao numero 1
+2026-11-19 00:02:48 - execucao numero 2
+
+$ docker run --rm -v /home/ubuntu/p2/labs/04-volumes-bind-mounts/scripts:/scripts:ro -v /home/ubuntu/p2/labs/04-volumes-bind-mounts/dados:/dados alpine sh /scripts/contador.sh
+Contador atual: 3
+--- historico (log.txt) ---
+2026-11-19 00:02:47 - execucao numero 1
+2026-11-19 00:02:48 - execucao numero 2
+2026-11-19 00:02:50 - execucao numero 3
+
+$ cat dados/contador.txt dados/log.txt
+3
+2026-11-19 00:02:47 - execucao numero 1
+2026-11-19 00:02:48 - execucao numero 2
+2026-11-19 00:02:50 - execucao numero 3
+
+$ docker volume create dados-contador
+dados-contador
+
+$ docker run --rm -v /home/ubuntu/p2/labs/04-volumes-bind-mounts/scripts:/scripts:ro -v dados-contador:/dados alpine sh /scripts/contador.sh
+Contador atual: 1
+--- historico (log.txt) ---
+2026-11-19 00:02:52 - execucao numero 1
+
+$ docker run --rm -v /home/ubuntu/p2/labs/04-volumes-bind-mounts/scripts:/scripts:ro -v dados-contador:/dados alpine sh /scripts/contador.sh
+Contador atual: 2
+--- historico (log.txt) ---
+2026-11-19 00:02:52 - execucao numero 1
+2026-11-19 00:02:54 - execucao numero 2
+
+$ docker volume inspect dados-contador
+[
+    {
+        "CreatedAt": "2026-11-19T00:02:51Z",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/dados-contador/_data",
+        "Name": "dados-contador",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+
+$ docker run --rm -v /home/ubuntu/p2/labs/04-volumes-bind-mounts/scripts:/scripts:ro --tmpfs /dados alpine sh /scripts/contador.sh
+Contador atual: 1
+--- historico (log.txt) ---
+2026-11-19 00:02:56 - execucao numero 1
+
+$ docker run --rm -v /home/ubuntu/p2/labs/04-volumes-bind-mounts/scripts:/scripts:ro --tmpfs /dados alpine sh /scripts/contador.sh
+Contador atual: 1
+--- historico (log.txt) ---
+2026-11-19 00:02:58 - execucao numero 1
+
+$ docker volume ls --filter name=dados-contador
+DRIVER    VOLUME NAME
+local     dados-contador
+
+$ docker volume rm dados-contador
+dados-contador
+
+$ docker run --rm -v /home/ubuntu/p2/labs/04-volumes-bind-mounts/scripts:/scripts:ro -v dados-contador:/dados alpine sh /scripts/contador.sh
+Contador atual: 1
+--- historico (log.txt) ---
+2026-11-19 00:03:00 - execucao numero 1
